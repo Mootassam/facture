@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import Pdf from "react-to-pdf";
 import "./Pdf.css";
 const PDF = (props) => {
   const { form } = props;
@@ -114,11 +113,6 @@ const PDF = (props) => {
             <p className='totale-right'>81,40 €</p>
           </div>
         </div>
-      </div>
-      <div>
-        <Pdf targetRef={ref} filename='post.pdf' x={0} y={0} scale={0.8}>
-          {({ toPdf }) => <button onClick={toPdf}>Capture as PDF</button>}
-        </Pdf>
       </div>
     </>
   );

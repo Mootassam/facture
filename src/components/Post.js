@@ -2,7 +2,17 @@ import React, { useState } from "react";
 import Calcule from "../Utils/Calcule";
 import PDF from "./PDF";
 import "./Post.css";
+import { VscAdd } from "react-icons/vsc";
+import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
+import { FaRegCopy } from "react-icons/fa";
+import { TiDeleteOutline } from "react-icons/ti";
+import Select from "react-select";
+
 const Post = () => {
+  const options = [
+    { value: "%", label: "%" },
+    { value: "€", label: "€" },
+  ];
   const [submited, setSubmited] = useState(false);
   const [form, setForm] = useState([
     {
@@ -17,125 +27,25 @@ const Post = () => {
     },
   ]);
   const [general, setGenerale] = useState({});
-
-  const calcule = (i) => {
-    let TTC = 0;
-    let HT = 0;
-
-    let newFormValues = [...form];
-
-    if (newFormValues[i]["quantity"] && newFormValues[i]["prix"]) {
-      TTC = newFormValues[i]["quantity"] * newFormValues[i]["prix"];
-      HT = TTC;
-    }
-    if (
-      newFormValues[i]["quantity"] &&
-      newFormValues[i]["prix"] &&
-      newFormValues[i]["discount"] &&
-      !newFormValues[i]["tva"]
-    ) {
-      TTC =
-        newFormValues[i]["quantity"] * newFormValues[i]["prix"] -
-        (newFormValues[i]["quantity"] *
-          newFormValues[i]["prix"] *
-          newFormValues[i]["discount"]) /
-          100;
-
-      HT = TTC;
-    }
-
-    if (
-      newFormValues[i]["quantity"] &&
-      newFormValues[i]["prix"] &&
-      newFormValues[i]["tva"] &&
-      !newFormValues[i]["discount"]
-    ) {
-      TTC =
-        newFormValues[i]["quantity"] * newFormValues[i]["prix"] +
-        (newFormValues[i]["quantity"] *
-          newFormValues[i]["prix"] *
-          newFormValues[i]["tva"]) /
-          100;
-    }
-    if (
-      newFormValues[i]["quantity"] &&
-      newFormValues[i]["prix"] &&
-      newFormValues[i]["tva"] &&
-      newFormValues[i]["discount"]
-    ) {
-      HT =
-        newFormValues[i]["quantity"] * newFormValues[i]["prix"] -
-        (newFormValues[i]["quantity"] *
-          newFormValues[i]["prix"] *
-          newFormValues[i]["discount"]) /
-          100;
-      TTC = HT + (HT * newFormValues[i]["tva"]) / 100;
-    }
-    return { TTC, HT };
-  };
-  const round = (numb) => {
-    let rnd = Math.round((numb + Number.EPSILON) * 1000) / 1000;
-    return rnd;
-  };
   const calculeGenerale = (e) => {
-    let TTC = [];
-    let THT = [];
-    let RemiseGeneral = "";
-    let THTF = 0;
-    let TVAG = [];
-
     let newFormValues = [...form];
     let value = Object.values(newFormValues);
-
-    value.map((item) => THT.push(item.HT));
-    THT = THT.reduce(
-      (accumulateur, valeurCourante) => accumulateur + valeurCourante
-    );
-    THTF = THT;
-    value.map((item) => TTC.push(item.TTC));
-    TTC = TTC.reduce(
-      (accumulateur, valeurCourante) => accumulateur + valeurCourante
-    );
-    TVAG = TTC - THT;
-    if (e) {
-      TTC = TTC - (TTC * e.target.value) / 100;
-      THTF = THT - (THT * e.target.value) / 100;
-      RemiseGeneral = (THT * e.target.value) / 100;
-      TVAG = TTC - THTF;
-    }
-    TVAG = round(TVAG);
-    THT = round(THT);
-    TTC = round(TTC);
-    TVAG = round(TVAG);
-    THTF = round(THTF);
-    if (THT < 0 || TTC < 0 || TVAG < 0 || THTF < 0) {
-      THT = 0;
-      TTC = 0;
-      TVAG = 0;
-      THTF = 0;
-    }
-    const global = {
-      THT,
-      TTC,
-      TVAG,
-      THTF,
-      RemiseGeneral,
-    };
+    global = Calcule.CalculeGeneral(e.target.value, value);
     setGenerale(global);
   };
-
   let handleChange = async (i, e) => {
+    console.log(e);
     let newFormValues = [...form];
     newFormValues[i][e.target.name] = e.target.value;
-    const { TTC, HT } = await calcule(i);
-    let TC = round(TTC);
-    let HTS = round(HT);
-    // newFormValues[i]["HT"] = (Math.round(HT * 100) / 100).toFixed(2);
-    // newFormValues[i]["TTC"] = (Math.round(TTC * 100) / 100).toFixed(2);
-    newFormValues[i]["HT"] = HTS;
-    newFormValues[i]["TTC"] = TC;
+    const { TTC, HT } = await Calcule.calcule(i, newFormValues);
+    newFormValues[i]["HT"] = HT;
+    newFormValues[i]["TTC"] = TTC;
     setForm(newFormValues);
-    await calculeGenerale();
+    if (e.target.name !== "description") {
+      let value = Object.values(newFormValues);
+      global = Calcule.CalculeGeneral(e.target.value, value);
+    }
+    setGenerale(global);
   };
 
   let addFormFields = () => {
@@ -157,6 +67,7 @@ const Post = () => {
   let copyFormFields = (index) => {
     let newForm = [...form];
     let data = newForm[index];
+
     setForm([
       ...form,
       {
@@ -174,8 +85,10 @@ const Post = () => {
 
   let removeFormFields = (i) => {
     let newFormValues = [...form];
-    newFormValues.splice(i, 1);
-    setForm(newFormValues);
+    if (i !== 0) {
+      newFormValues.splice(i, 1);
+      setForm(newFormValues);
+    }
   };
   let handleSubmit = (event) => {
     event.preventDefault();
@@ -221,8 +134,12 @@ const Post = () => {
                       <span>{index + 1}</span>
                     </div>
                     <div className='form-left-icons'>
-                      <span>U</span>
-                      <span>D</span>
+                      <span>
+                        <AiOutlineCaretUp />
+                      </span>
+                      <span>
+                        <AiOutlineCaretDown />
+                      </span>
                     </div>
                     <div className='form-left-hr' />
                   </div>
@@ -236,12 +153,6 @@ const Post = () => {
                           <option value='Jours'>Jours</option>
                           <option value='Produit'>Produit</option>
                         </select>
-                      </div>
-                      <div className='form-right-icons'>
-                        <span onClick={(index) => removeFormFields(index)}>
-                          R
-                        </span>
-                        <span onClick={() => copyFormFields(index)}>C</span>
                       </div>
                     </div>
                     <div className='form-right-others'>
@@ -283,14 +194,15 @@ const Post = () => {
                           onChange={(e) => handleChange(index, e)}
                         />
                       </div>
-                      <select name='typeReduction'>
+
+                      <select name='typeReduction' onChange={handleChange}>
                         <option value='%'>%</option>
                         <option value='€'>$</option>
                       </select>
                       <div className='other-number'>
                         <label className='disabled'>Total HT</label>
                         <input
-                          disabled=''
+                          disabled
                           type='number'
                           name='HT'
                           value={item.HT || ""}
@@ -316,10 +228,21 @@ const Post = () => {
                       />
                     </div>
                   </div>
+
+                  <div className='form-right-icons'>
+                    <span onClick={() => removeFormFields(index)}>
+                      <TiDeleteOutline />
+                    </span>
+                    <span onClick={() => copyFormFields(index)}>
+                      <FaRegCopy />
+                    </span>
+                  </div>
                 </div>
               ))}
               <div className='add_ligne'>
-                <a onClick={() => addFormFields()}>Ajouter une ligne</a>
+                <a onClick={() => addFormFields()}>
+                  <VscAdd /> Ajouter une ligne
+                </a>
               </div>
             </div>
 

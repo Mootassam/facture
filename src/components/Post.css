@@ -178,6 +178,7 @@ option {
 .services {
   display: flex;
   width: 100%;
+  margin-bottom: 2rem;
 }
 .form-right-service {
   display: flex;
@@ -190,7 +191,9 @@ option {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  right: 0;
+
+  float: right;
+  text-align: right;
 }
 .form-right-icons span:nth-child(1) {
   background-color: #efefef;
