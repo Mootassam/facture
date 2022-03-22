@@ -84,7 +84,7 @@ const PDF = (props) => {
                     <td className='details-numeric'>{item.quantity} €</td>
                     <td className='details-numeric'>{item.tva}%</td>
                     <td className='details-numeric'>{item.discount} €</td>
-                    <td className='details-numeric'>{item.HT} €</td>
+                    <td className='details-numeric'>{item.TTC} €</td>
                   </tr>
                 ))}
               </tbody>

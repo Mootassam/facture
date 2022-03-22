@@ -23,11 +23,9 @@ const Post = () => {
     let HT = 0;
 
     let newFormValues = [...form];
+
     if (newFormValues[i]["quantity"] && newFormValues[i]["prix"]) {
-      TTC = Calcule.CheckValues(
-        newFormValues[i]["quantity"],
-        newFormValues[i]["prix"]
-      );
+      TTC = newFormValues[i]["quantity"] * newFormValues[i]["prix"];
       HT = TTC;
     }
     if (
@@ -82,7 +80,7 @@ const Post = () => {
   const calculeGenerale = (e) => {
     let TTC = [];
     let THT = [];
-    let RemiseGeneral = 0;
+    let RemiseGeneral = "";
     let THTF = 0;
     let TVAG = [];
 
@@ -98,11 +96,14 @@ const Post = () => {
     TTC = TTC.reduce(
       (accumulateur, valeurCourante) => accumulateur + valeurCourante
     );
+    TVAG = TTC - THT;
     if (e) {
       TTC = TTC - (TTC * e.target.value) / 100;
       THTF = THT - (THT * e.target.value) / 100;
+      RemiseGeneral = (THT * e.target.value) / 100;
+      TVAG = TTC - THTF;
     }
-    TVAG = TTC - THT;
+    TVAG = round(TVAG);
     THT = round(THT);
     TTC = round(TTC);
     TVAG = round(TVAG);
@@ -149,6 +150,24 @@ const Post = () => {
         HT: "",
         TTC: "",
         description: "",
+      },
+    ]);
+  };
+
+  let copyFormFields = (index) => {
+    let newForm = [...form];
+    let data = newForm[index];
+    setForm([
+      ...form,
+      {
+        type: data.type,
+        quantity: data.quantity,
+        prix: data.prix,
+        tva: data.tva,
+        discount: data.discount,
+        HT: data.HT,
+        TTC: data.TTC,
+        description: data.description,
       },
     ]);
   };
@@ -211,7 +230,7 @@ const Post = () => {
                     <div className='services'>
                       <div className='form-right-service'>
                         <label htmlFor=''> Type</label>
-                        <select onChange={(e) => handleChange(e)}>
+                        <select>
                           <option value='Service'>Service</option>
                           <option value='Heures'>Heures</option>
                           <option value='Jours'>Jours</option>
@@ -222,7 +241,7 @@ const Post = () => {
                         <span onClick={(index) => removeFormFields(index)}>
                           R
                         </span>
-                        <span>C</span>
+                        <span onClick={() => copyFormFields(index)}>C</span>
                       </div>
                     </div>
                     <div className='form-right-others'>
@@ -253,6 +272,7 @@ const Post = () => {
                           onChange={(e) => handleChange(index, e)}
                         />
                       </div>
+
                       <div className='other-number'>
                         <label className='label'>Réduction </label>
                         <input
@@ -263,6 +283,10 @@ const Post = () => {
                           onChange={(e) => handleChange(index, e)}
                         />
                       </div>
+                      <select name='typeReduction'>
+                        <option value='%'>%</option>
+                        <option value='€'>$</option>
+                      </select>
                       <div className='other-number'>
                         <label className='disabled'>Total HT</label>
                         <input
@@ -274,7 +298,11 @@ const Post = () => {
                       </div>
                       <div className='other-number'>
                         <label className='label'>Total TTC </label>
-                        <input type='number' value={item.TTC || ""} />
+                        <input
+                          type='number'
+                          value={item.TTC || ""}
+                          onChange={(e) => handleChange(e)}
+                        />
                       </div>
                     </div>
                     <div className='form-right-descriptions'>
@@ -309,7 +337,7 @@ const Post = () => {
 
               <select>
                 <option>%</option>
-                <option>$</option>
+                <option>€</option>
               </select>
             </div>
 
@@ -320,7 +348,7 @@ const Post = () => {
               </div>
               <div className='total-items'>
                 <p>Remise générale</p>
-                <p>{general.RemiseGeneral} €</p>
+                <p> {general.RemiseGeneral} €</p>
               </div>
               <div className='total-items'>
                 <p>Total HT final</p>
