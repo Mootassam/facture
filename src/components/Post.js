@@ -7,6 +7,8 @@ import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { FaRegCopy } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import Select from "react-select";
+import { GoInfo } from "react-icons/go";
+import { ImInfo } from "react-icons/im";
 
 const Post = () => {
   const options = [
@@ -41,10 +43,10 @@ const Post = () => {
     check = value.map((item, index) => {
       return item.tva;
     });
-    let isDuplicated = check.some((item, index) => {
-      return check.indexOf(item) !== index;
-    });
-    isDuplicated ? setEnable(false) : setEnable(true);
+    let isDuplicated = check.every((v) => v === check[0]);
+    console.log(isDuplicated);
+
+    isDuplicated ? setEnable(true) : setEnable(false);
   };
   let handleChange = async (i, e) => {
     let newFormValues = [...form];
@@ -54,11 +56,12 @@ const Post = () => {
     newFormValues[i]["HT"] = HT;
     newFormValues[i]["TTC"] = TTC;
     setForm(newFormValues);
+    if (e.target.name === "tva") await checkTheDuplicate(newFormValues);
+
     if (e.target.name !== "description") {
       let value = Object.values(newFormValues);
       global = Calcule.CalculeGeneral(e.target.value, value);
     }
-    await checkTheDuplicate(newFormValues);
     setGenerale(global);
   };
 
@@ -261,6 +264,19 @@ const Post = () => {
             </div>
 
             <div className='remise_total'>
+              {enable ? (
+                ""
+              ) : (
+                <div>
+                  <span alt=''>
+                    <ImInfo size={20} />
+                  </span>
+                  <div className='remise-message'>
+                    Il n'est pas possible d'effectuer une remise générale sur ce
+                    document. Veuillez à la place appliquer une remise par ligne
+                  </div>
+                </div>
+              )}
               <div className='other-number'>
                 <label className='label'>Remise General</label>
                 <input
@@ -270,15 +286,6 @@ const Post = () => {
                   min={0}
                   onChange={(e) => calculeGenerale(e)}
                 />
-                {enable ? (
-                  ""
-                ) : (
-                  <span>
-                    Il nest pas possible deffectuer une remise generele sure ce
-                    document , Vueillez a la place appliquer une remise par
-                    ligne
-                  </span>
-                )}
               </div>
 
               <select>

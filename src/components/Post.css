@@ -224,12 +224,12 @@ option {
 .other-number {
   display: flex;
   flex-direction: column;
-  width: 100px;
+  width: 120px;
 }
 .other-number > label {
   color: #7b7c7d;
   font-size: 15px;
-  font-size: 400;
+  font-weight: 400;
 }
 
 .add_ligne {
@@ -281,11 +281,39 @@ a:hover {
 .remise_total {
   display: flex;
   gap: 1.2rem;
-  flex-direction: row;
-  justify-items: baseline;
   float: right;
+  flex-direction: row;
+
   margin-bottom: 1rem;
 }
+.remise_total > div {
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-end;
+  justify-content: flex-end;
+}
+.remise-message {
+  display: none;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+.remise_total > div > span:hover + .remise-message {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  position: absolute;
+  background-color: #676767;
+  padding: 0.5rem;
+  font-size: 16px;
+  width: fit-content;
+  margin: 1rem -25rem -1.8rem;
+  z-index: 999;
+  font-size: 11px;
+  color: white;
+}
+
 /******** Styling the Button in the bottom ********/
 button {
   cursor: pointer;
