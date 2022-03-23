@@ -131,7 +131,7 @@ option {
 }
 .form-left-numbers {
   position: relative;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
 }
 .form-left-icons {
   position: relative;
@@ -140,7 +140,7 @@ option {
   justify-content: center;
   align-items: center;
   align-content: center;
-  gap: 0.3rem;
+  gap: 0.1rem;
 }
 
 .form-left-icons span:nth-child(1) {
@@ -167,40 +167,41 @@ option {
   display: flex;
   position: absolute;
   background-color: #efefef;
-  height: 22%;
+  height: 25%;
   z-index: 0;
 }
 
 /**Right**/
 .form-right {
   width: 100%;
+  margin-top: 1rem;
 }
 .services {
   display: flex;
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 0.6rem;
 }
 .form-right-service {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 47%;
 }
 
 .form-right-icons {
   margin-left: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
-
+  gap: 0.7rem;
   float: right;
   text-align: right;
+  align-items: center;
+  justify-items: center;
 }
 .form-right-icons span:nth-child(1) {
   background-color: #efefef;
   padding: 0.3rem 0.3rem;
   z-index: 3;
-  border-start-start-radius: 50%;
-  border-start-end-radius: 50%;
+  border-radius: 50%;
   cursor: pointer;
 }
 
@@ -208,8 +209,7 @@ option {
   background-color: #efefef;
   padding: 0.3rem 0.3rem;
   z-index: 3;
-  border-end-start-radius: 50%;
-  border-end-end-radius: 50%;
+  border-radius: 50%;
   cursor: pointer;
 }
 .form-right-icons span:hover {

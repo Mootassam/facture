@@ -27,6 +27,7 @@ const Post = () => {
     },
   ]);
   const [general, setGenerale] = useState({});
+  const [disable, setDisable] = useState(false);
   const calculeGenerale = (e) => {
     let newFormValues = [...form];
     let value = Object.values(newFormValues);
@@ -34,9 +35,9 @@ const Post = () => {
     setGenerale(global);
   };
   let handleChange = async (i, e) => {
-    console.log(e);
     let newFormValues = [...form];
     newFormValues[i][e.target.name] = e.target.value;
+
     const { TTC, HT } = await Calcule.calcule(i, newFormValues);
     newFormValues[i]["HT"] = HT;
     newFormValues[i]["TTC"] = TTC;
@@ -45,6 +46,15 @@ const Post = () => {
       let value = Object.values(newFormValues);
       global = Calcule.CalculeGeneral(e.target.value, value);
     }
+    let check;
+
+    check = newFormValues.map((item, index) => {
+      return item.tva;
+    });
+    let duplicated = check.some((item, index) => {
+      return check.indexOf(item) !== index;
+    });
+    duplicated ? setDisable(true) : setDisable(false);
     setGenerale(global);
   };
 
@@ -256,6 +266,15 @@ const Post = () => {
                   min={0}
                   onChange={(e) => calculeGenerale(e)}
                 />
+                {disable ? (
+                  <span>
+                    Il nest pas possible deffectuer une remise generele sure ce
+                    document , Vueillez a la place appliquer une remise par
+                    ligne
+                  </span>
+                ) : (
+                  ""
+                )}
               </div>
 
               <select>
