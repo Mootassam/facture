@@ -27,12 +27,24 @@ const Post = () => {
     },
   ]);
   const [general, setGenerale] = useState({});
-  const [disable, setDisable] = useState(false);
+  const [enable, setEnable] = useState(false);
   const calculeGenerale = (e) => {
     let newFormValues = [...form];
     let value = Object.values(newFormValues);
     global = Calcule.CalculeGeneral(e.target.value, value);
     setGenerale(global);
+  };
+
+  const checkTheDuplicate = (value) => {
+    let check;
+
+    check = value.map((item, index) => {
+      return item.tva;
+    });
+    let isDuplicated = check.some((item, index) => {
+      return check.indexOf(item) !== index;
+    });
+    isDuplicated ? setEnable(false) : setEnable(true);
   };
   let handleChange = async (i, e) => {
     let newFormValues = [...form];
@@ -46,15 +58,7 @@ const Post = () => {
       let value = Object.values(newFormValues);
       global = Calcule.CalculeGeneral(e.target.value, value);
     }
-    let check;
-
-    check = newFormValues.map((item, index) => {
-      return item.tva;
-    });
-    let duplicated = check.some((item, index) => {
-      return check.indexOf(item) !== index;
-    });
-    duplicated ? setDisable(true) : setDisable(false);
+    await checkTheDuplicate(newFormValues);
     setGenerale(global);
   };
 
@@ -266,14 +270,14 @@ const Post = () => {
                   min={0}
                   onChange={(e) => calculeGenerale(e)}
                 />
-                {disable ? (
+                {enable ? (
+                  ""
+                ) : (
                   <span>
                     Il nest pas possible deffectuer une remise generele sure ce
                     document , Vueillez a la place appliquer une remise par
                     ligne
                   </span>
-                ) : (
-                  ""
                 )}
               </div>
 
