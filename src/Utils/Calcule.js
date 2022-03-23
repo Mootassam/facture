@@ -44,6 +44,7 @@ class Calcule {
       TTC = 0;
       TVAG = 0;
       THTF = 0;
+      RemiseGeneral = 0;
     }
     value.map((item) => THT.push(item.HT));
     THT = THT.reduce(
@@ -55,11 +56,11 @@ class Calcule {
       (accumulateur, valeurCourante) => accumulateur + valeurCourante
     );
     TVAG = TTC - THT;
+    TVAG = this.round(TVAG);
     if (remise) {
       TTC = this.round(TTC - (TTC * remise) / 100);
       THTF = this.round(THT - (THT * remise) / 100);
       RemiseGeneral = this.round((THT * remise) / 100);
-      TVAG = this.round(TTC - THTF);
     }
 
     return {

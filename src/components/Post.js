@@ -30,42 +30,8 @@ const Post = () => {
   ]);
   const [general, setGenerale] = useState({});
   const [enable, setEnable] = useState(false);
-  const calculeGenerale = (e) => {
-    let newFormValues = [...form];
-    let value = Object.values(newFormValues);
-    global = Calcule.CalculeGeneral(e.target.value, value);
-    setGenerale(global);
-  };
 
-  const checkTheDuplicate = (value) => {
-    let check;
-
-    check = value.map((item, index) => {
-      return item.tva;
-    });
-    let isDuplicated = check.every((v) => v === check[0]);
-    console.log(isDuplicated);
-
-    isDuplicated ? setEnable(true) : setEnable(false);
-  };
-  let handleChange = async (i, e) => {
-    let newFormValues = [...form];
-    newFormValues[i][e.target.name] = e.target.value;
-
-    const { TTC, HT } = await Calcule.calcule(i, newFormValues);
-    newFormValues[i]["HT"] = HT;
-    newFormValues[i]["TTC"] = TTC;
-    setForm(newFormValues);
-    if (e.target.name === "tva") await checkTheDuplicate(newFormValues);
-
-    if (e.target.name !== "description") {
-      let value = Object.values(newFormValues);
-      global = Calcule.CalculeGeneral(e.target.value, value);
-    }
-    setGenerale(global);
-  };
-
-  let addFormFields = () => {
+  const addFormFields = () => {
     setForm([
       ...form,
       {
@@ -81,11 +47,10 @@ const Post = () => {
     ]);
   };
 
-  let copyFormFields = (index) => {
+  const copyFormFields = async (index) => {
     let newForm = [...form];
     let data = newForm[index];
-
-    setForm([
+    await setForm([
       ...form,
       {
         type: data.type,
@@ -100,22 +65,58 @@ const Post = () => {
     ]);
   };
 
-  let removeFormFields = (i) => {
+  const removeFormFields = (i) => {
     let newFormValues = [...form];
     if (i !== 0) {
       newFormValues.splice(i, 1);
       setForm(newFormValues);
     }
   };
-  let handleSubmit = (event) => {
-    event.preventDefault();
-    alert(JSON.stringify(form));
+  const checkTheDuplicate = (value) => {
+    let check;
+    check = value.map((item, index) => {
+      return item.tva;
+    });
+    let isDuplicated = check.every((v) => v === check[0]);
+    console.log(isDuplicated);
+    isDuplicated ? setEnable(true) : setEnable(false);
+  };
+
+  const calculeGenerale = (e) => {
+    let newFormValues = [...form];
+    let value = Object.values(newFormValues);
+    global = Calcule.CalculeGeneral(e.target.value, value);
+    setGenerale(global);
+  };
+
+  const handleChange = async (i, e) => {
+    let newFormValues = [...form];
+    if (i !== "" || i !== null) {
+      newFormValues[i][e.target.name] = e.target.value;
+      const { TTC, HT } = await Calcule.calcule(i, newFormValues);
+      newFormValues[i]["HT"] = HT;
+      newFormValues[i]["TTC"] = TTC;
+    }
+    setForm(newFormValues);
+    if (e.target.name === "tva") await checkTheDuplicate(newFormValues);
+    if (e.target.name !== "description") {
+      let value = Object.values(newFormValues);
+      global = Calcule.CalculeGeneral(e.target.value, value);
+    }
+    setGenerale(global);
+  };
+  const handleSubmit = () => {
+    let newFormValues = [...form];
+    let value = Object.values(newFormValues);
+    global = Calcule.CalculeGeneral("", value);
+
+    setGenerale(global);
   };
 
   return (
     <>
       {submited === false ? (
-        <div className='app__form'>
+        <div className='app__form' onClick={handleSubmit}>
           <form action='' className='form'>
             <div className='form-destinataire'>
               <div className='form-devis-title'>
@@ -229,7 +230,7 @@ const Post = () => {
                         <label className='label'>Total TTC </label>
                         <input
                           type='number'
-                          value={item.TTC || ""}
+                          value={item.TTC}
                           onChange={(e) => handleChange(e)}
                         />
                       </div>
@@ -277,16 +278,32 @@ const Post = () => {
                   </div>
                 </div>
               )}
-              <div className='other-number'>
-                <label className='label'>Remise General</label>
-                <input
-                  type='number'
-                  name='general'
-                  max={100}
-                  min={0}
-                  onChange={(e) => calculeGenerale(e)}
-                />
-              </div>
+              {enable ? (
+                <div className='other-number'>
+                  <label className='label'>Remise General</label>
+
+                  <input
+                    type='number'
+                    name='general'
+                    max={100}
+                    min={0}
+                    onChange={(e) => calculeGenerale(e)}
+                  />
+                </div>
+              ) : (
+                <div className='other-number'>
+                  <label className='disabled'>Remise General</label>
+
+                  <input
+                    type='number'
+                    name='general'
+                    max={100}
+                    min={0}
+                    disabled
+                    onChange={(e) => calculeGenerale(e)}
+                  />
+                </div>
+              )}
 
               <select>
                 <option>%</option>
@@ -317,9 +334,7 @@ const Post = () => {
               </div>
             </div>
             <div className='app_form-button'>
-              <button
-                className='button-submit'
-                onClick={() => setSubmited(!submited)}>
+              <button className='button-submit' type='button'>
                 Valider Le devis
               </button>
             </div>

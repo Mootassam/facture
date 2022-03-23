@@ -261,6 +261,7 @@ a:hover {
   flex-direction: column;
   width: 100%;
   background-color: #f1f1f1;
+
   margin-top: 4rem;
 }
 .total-items {
@@ -272,6 +273,7 @@ a:hover {
   margin: 0.4rem 1rem;
   display: flex;
   gap: 1.2rem;
+  color: black;
 }
 
 .app_form-button {
