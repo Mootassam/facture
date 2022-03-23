@@ -47,6 +47,19 @@ const Post = () => {
     ]);
   };
 
+  const Up = (from, to) => {
+    let newForm = [...form];
+    let f = newForm.splice(from, 1)[0];
+    newForm.splice(to, 0, f);
+    setForm(newForm);
+  };
+  const Down = (from, to) => {
+    let newForm = [...form];
+    let f = newForm.splice(from, 1)[0];
+    newForm.splice(to, 0, f);
+    setForm(newForm);
+  };
+
   const copyFormFields = async (index) => {
     let newForm = [...form];
     let data = newForm[index];
@@ -109,7 +122,6 @@ const Post = () => {
     let newFormValues = [...form];
     let value = Object.values(newFormValues);
     global = Calcule.CalculeGeneral("", value);
-
     setGenerale(global);
   };
 
@@ -152,10 +164,10 @@ const Post = () => {
                       <span>{index + 1}</span>
                     </div>
                     <div className='form-left-icons'>
-                      <span>
+                      <span onClick={() => Up(index, index - 1)}>
                         <AiOutlineCaretUp />
                       </span>
-                      <span>
+                      <span onClick={() => Down(index, index + 1)}>
                         <AiOutlineCaretDown />
                       </span>
                     </div>

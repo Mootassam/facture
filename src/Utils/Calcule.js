@@ -62,7 +62,6 @@ class Calcule {
       THTF = this.round(THT - (THT * remise) / 100);
       RemiseGeneral = this.round((THT * remise) / 100);
     }
-
     return {
       THT,
       TTC,
