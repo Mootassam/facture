@@ -63,19 +63,18 @@ const Post = () => {
   const copyFormFields = async (index) => {
     let newForm = [...form];
     let data = newForm[index];
-    await setForm([
-      ...form,
-      {
-        type: data.type,
-        quantity: data.quantity,
-        prix: data.prix,
-        tva: data.tva,
-        discount: data.discount,
-        HT: data.HT,
-        TTC: data.TTC,
-        description: data.description,
-      },
-    ]);
+    data = {
+      type: data.type,
+      quantity: data.quantity,
+      prix: data.prix,
+      tva: data.tva,
+      discount: data.discount,
+      HT: data.HT,
+      TTC: data.TTC,
+      description: data.description,
+    };
+    newForm.splice(index, 0, data);
+    await setForm(newForm);
   };
 
   const removeFormFields = (i) => {
