@@ -1,13 +1,9 @@
+body {
+  color: rgba(12, 13, 15, 0.82);
+  width: 100%;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-body {
-  color: rgba(12, 13, 15, 0.82);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  width: 100%;
 }

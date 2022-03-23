@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import Calcule from "../Utils/Calcule";
-import PDF from "./PDF";
-import "./Post.css";
 import { VscAdd } from "react-icons/vsc";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { FaRegCopy } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import Select from "react-select";
-import { GoInfo } from "react-icons/go";
 import { ImInfo } from "react-icons/im";
+import "./Post.css";
+import PDF from "./PDF";
 
 const Post = () => {
   const options = [
@@ -168,9 +167,9 @@ const Post = () => {
                       </span>
                       <span onClick={() => Down(index, index + 1)}>
                         <AiOutlineCaretDown />
+                        <div className='form-left-hr' />
                       </span>
                     </div>
-                    <div className='form-left-hr' />
                   </div>
                   <div className='form-right'>
                     <div className='services'>
@@ -345,7 +344,10 @@ const Post = () => {
               </div>
             </div>
             <div className='app_form-button'>
-              <button className='button-submit' type='button'>
+              <button
+                className='button-submit'
+                type='button'
+                onClick={() => setSubmited(!submited)}>
                 Valider Le devis
               </button>
             </div>
