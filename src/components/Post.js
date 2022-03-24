@@ -58,7 +58,12 @@ const Post = () => {
     newForm.splice(to, 0, f);
     setForm(newForm);
   };
-
+  const handleSubmit = () => {
+    let newFormValues = [...form];
+    let value = Object.values(newFormValues);
+    global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
+    setGenerale(global);
+  };
   const copyFormFields = async (index) => {
     let newForm = [...form];
     let data = newForm[index];
@@ -74,7 +79,11 @@ const Post = () => {
       description: data.description,
     };
     newForm.splice(index, 0, data);
+
     await setForm(newForm);
+    let value = Object.values(newForm);
+    global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
+    setGenerale(global);
   };
 
   const removeFormFields = (i) => {
@@ -83,6 +92,9 @@ const Post = () => {
       newFormValues.splice(i, 1);
       setForm(newFormValues);
     }
+    let value = Object.values(newFormValues);
+    global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
+    setGenerale(global);
   };
   const checkTheDuplicate = (value) => {
     let check;
@@ -131,12 +143,6 @@ const Post = () => {
       );
       setGenerale(global);
     }
-  };
-  const handleSubmit = () => {
-    let newFormValues = [...form];
-    let value = Object.values(newFormValues);
-    global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
-    setGenerale(global);
   };
 
   return (
