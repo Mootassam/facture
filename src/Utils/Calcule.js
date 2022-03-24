@@ -63,18 +63,17 @@ class Calcule {
     TTC = TTC.reduce(
       (accumulateur, valeurCourante) => accumulateur + valeurCourante
     );
-    TVAG = TTC - THT;
-    TVAG = this.round(TVAG);
-    if (remise || type) {
+    if (remise) {
       if (type === "%") {
         TTC = this.round(TTC - (TTC * remise) / 100);
         THTF = this.round(THT - (THT * remise) / 100);
-      } else if (type === "€") {
-        TTC = this.round(TTC - remise);
-        THTF = this.round(THT - remise);
       }
+      TTC = this.round(TTC - remise);
+      THTF = this.round(THT - remise);
       RemiseGeneral = this.round((THT * remise) / 100);
     }
+    TVAG = TTC - THT;
+    TVAG = this.round(TVAG);
     return {
       THT,
       RemiseGeneral,

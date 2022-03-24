@@ -96,14 +96,6 @@ const Post = () => {
   const calculeGenerale = async (e) => {
     let newFormValues = [...form];
     let value = Object.values(newFormValues);
-    if (e.target.name === "typediscountGlobal") {
-      setTypeRemiseTotale(e.target.value);
-      global = await Calcule.CalculeGeneral(
-        remisteTotal,
-        value,
-        typeRemiseTotale
-      );
-    }
     if (e.target.name === "general") {
       setRemisteTotal(e.target.value);
       global = await Calcule.CalculeGeneral(
@@ -111,13 +103,9 @@ const Post = () => {
         value,
         typeRemiseTotale
       );
+    } else if (e.target.name === "typediscountGlobal") {
+      setTypeRemiseTotale(e.target.value);
     }
-
-    global = await Calcule.CalculeGeneral(
-      e.target.value,
-      value,
-      typeRemiseTotale
-    );
     setGenerale(global);
   };
 
@@ -136,7 +124,11 @@ const Post = () => {
 
     if (e.target.name !== "description") {
       let value = Object.values(newFormValues);
-      global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
+      global = await Calcule.CalculeGeneral(
+        remisteTotal,
+        value,
+        typeRemiseTotale
+      );
       setGenerale(global);
     }
   };
