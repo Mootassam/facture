@@ -243,7 +243,7 @@ option {
   max-width: fit-content;
   cursor: pointer;
 }
-a {
+.add_ligne > span {
   cursor: pointer;
   background-color: #ffffff;
   border-radius: 3px;
@@ -254,7 +254,7 @@ a {
   font-weight: 700;
   text-transform: uppercase;
 }
-a:hover {
+.add_ligne > span:hover {
   color: #516aa7;
   background-color: rgba(91, 119, 188, 0.12);
 }

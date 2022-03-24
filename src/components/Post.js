@@ -60,7 +60,7 @@ const Post = () => {
   const handleSubmit = () => {
     let newFormValues = [...form];
     let value = Object.values(newFormValues);
-    global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
+    let global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
     setGenerale(global);
   };
   const copyFormFields = async (index) => {
@@ -78,10 +78,9 @@ const Post = () => {
       description: data.description,
     };
     newForm.splice(index, 0, data);
-
     await setForm(newForm);
     let value = Object.values(newForm);
-    global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
+    let global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
     setGenerale(global);
   };
 
@@ -92,7 +91,7 @@ const Post = () => {
       setForm(newFormValues);
     }
     let value = Object.values(newFormValues);
-    global = await Calcule.CalculeGeneral(
+    let global = await Calcule.CalculeGeneral(
       remisteTotal,
       value,
       typeRemiseTotale
@@ -110,6 +109,7 @@ const Post = () => {
 
   const calculeGenerale = async (e) => {
     let newFormValues = [...form];
+    let global;
     let value = Object.values(newFormValues);
     if (e.target.name === "general") {
       setRemisteTotal(e.target.value);
@@ -139,7 +139,7 @@ const Post = () => {
 
     if (e.target.name !== "description") {
       let value = Object.values(newFormValues);
-      global = await Calcule.CalculeGeneral(
+      let global = await Calcule.CalculeGeneral(
         remisteTotal,
         value,
         typeRemiseTotale
@@ -295,9 +295,9 @@ const Post = () => {
                 </div>
               ))}
               <div className='add_ligne'>
-                <a onClick={() => addFormFields()}>
+                <span onClick={() => addFormFields()}>
                   <VscAdd /> Ajouter une ligne
-                </a>
+                </span>
               </div>
             </div>
 
