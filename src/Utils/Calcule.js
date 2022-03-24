@@ -10,9 +10,13 @@ class Calcule {
     HT = quantity && prix ? quantity * prix : 0;
     return HT;
   }
-  static CalculeHtWithDiscount(quantity, prix, discount) {
+  static CalculeHtWithDiscount(quantity, prix, discount, typeReduction) {
     let HT = 0;
-    HT = quantity * prix - (quantity * prix * discount) / 100;
+    if (typeReduction === "%") {
+      HT = quantity * prix - (quantity * prix * discount) / 100;
+    } else if (typeReduction === "€") {
+      HT = quantity * prix - discount;
+    }
     return HT;
   }
   static CalculeTTC(quantity, prix, tva) {
@@ -21,10 +25,13 @@ class Calcule {
     return TTC;
   }
 
-  static CalculeTotale(quantity, prix, tva, discount) {
+  static CalculeTotale(quantity, prix, tva, discount, typeReduction) {
     let HT = 0;
-
-    HT = quantity * prix - (quantity * prix * discount) / 100;
+    if (typeReduction === "%") {
+      HT = quantity * prix - (quantity * prix * discount) / 100;
+    } else if (typeReduction === "€") {
+      HT = quantity * prix - discount;
+    }
 
     return HT;
   }
@@ -91,7 +98,8 @@ class Calcule {
       TTC = this.CalculeHtWithDiscount(
         newFormValues[i]["quantity"],
         newFormValues[i]["prix"],
-        newFormValues[i]["discount"]
+        newFormValues[i]["discount"],
+        newFormValues[i]["typeReduction"]
       );
       HT = TTC;
     }
@@ -118,7 +126,8 @@ class Calcule {
         newFormValues[i]["quantity"],
         newFormValues[i]["prix"],
         newFormValues[i]["tva"],
-        newFormValues[i]["discount"]
+        newFormValues[i]["discount"],
+        newFormValues[i]["typeReduction"]
       );
       HT = this.round(HT);
       TTC = HT + (HT * newFormValues[i]["tva"]) / 100;

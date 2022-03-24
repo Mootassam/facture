@@ -22,6 +22,7 @@ const Post = () => {
       prix: "",
       tva: "",
       discount: "",
+      typeDiscount: "",
       HT: "",
       TTC: "",
       description: "",
@@ -39,6 +40,7 @@ const Post = () => {
         prix: "",
         tva: "",
         discount: "",
+        typeDiscount: "",
         HT: "",
         TTC: "",
         description: "",
@@ -68,6 +70,7 @@ const Post = () => {
       prix: data.prix,
       tva: data.tva,
       discount: data.discount,
+      typeDiscount: data.typeDiscount,
       HT: data.HT,
       TTC: data.TTC,
       description: data.description,
@@ -89,7 +92,6 @@ const Post = () => {
       return item.tva;
     });
     let isDuplicated = check.every((v) => v === check[0]);
-    console.log(isDuplicated);
     isDuplicated ? setEnable(true) : setEnable(false);
   };
 
@@ -102,6 +104,7 @@ const Post = () => {
 
   const handleChange = async (i, e) => {
     let newFormValues = [...form];
+
     if (i !== "" || i !== null) {
       newFormValues[i][e.target.name] = e.target.value;
       const { TTC, HT } = await Calcule.calcule(i, newFormValues);
@@ -223,9 +226,11 @@ const Post = () => {
                         />
                       </div>
 
-                      <select name='typeReduction' onChange={handleChange}>
+                      <select
+                        name='typeReduction'
+                        onChange={(e) => handleChange(index, e)}>
                         <option value='%'>%</option>
-                        <option value='€'>$</option>
+                        <option value='€'>€</option>
                       </select>
                       <div className='other-number'>
                         <label className='disabled'>Total HT</label>
