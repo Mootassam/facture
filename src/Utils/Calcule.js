@@ -10,12 +10,14 @@ class Calcule {
     HT = quantity && prix ? quantity * prix : 0;
     return HT;
   }
-  static CalculeHtWithDiscount(quantity, prix, discount, typeReduction) {
+  static CalculeHtWithDiscount(quantity, prix, discount, typeDiscount) {
     let HT = 0;
-    if (typeReduction === "%") {
-      HT = quantity * prix - (quantity * prix * discount) / 100;
-    } else if (typeReduction === "€") {
+    if (typeDiscount === "€") {
       HT = quantity * prix - discount;
+    } else if (typeDiscount === "%") {
+      HT = quantity * prix - (quantity * prix * discount) / 100;
+    } else {
+      HT = quantity * prix - (quantity * prix * discount) / 100;
     }
     return HT;
   }
@@ -25,11 +27,11 @@ class Calcule {
     return TTC;
   }
 
-  static CalculeTotale(quantity, prix, tva, discount, typeReduction) {
+  static CalculeTotale(quantity, prix, tva, discount, typeDiscount) {
     let HT = 0;
-    if (typeReduction === "%") {
+    if (typeDiscount === "%") {
       HT = quantity * prix - (quantity * prix * discount) / 100;
-    } else if (typeReduction === "€") {
+    } else if (typeDiscount === "€") {
       HT = quantity * prix - discount;
     }
 
@@ -41,9 +43,9 @@ class Calcule {
   }
 
   static CalculeGeneral(remise, value, type) {
-    let TTC = [];
     let THT = [];
-    let RemiseGeneral = 0.0;
+    let RemiseGeneral = 0;
+    let TTC = [];
     let THTF = 0;
     let TVAG = [];
     if (THT < 0 || TTC < 0 || TVAG < 0 || THTF < 0) {
@@ -51,7 +53,6 @@ class Calcule {
       TTC = 0;
       TVAG = 0;
       THTF = 0;
-      RemiseGeneral = 0;
     }
     value.map((item) => THT.push(item.HT));
     THT = THT.reduce(
@@ -76,10 +77,10 @@ class Calcule {
     }
     return {
       THT,
+      RemiseGeneral,
       TTC,
       TVAG,
       THTF,
-      RemiseGeneral,
     };
   }
 
@@ -104,7 +105,7 @@ class Calcule {
         newFormValues[i]["quantity"],
         newFormValues[i]["prix"],
         newFormValues[i]["discount"],
-        newFormValues[i]["typeReduction"]
+        newFormValues[i]["typeDiscount"]
       );
       HT = TTC;
     }
@@ -132,7 +133,7 @@ class Calcule {
         newFormValues[i]["prix"],
         newFormValues[i]["tva"],
         newFormValues[i]["discount"],
-        newFormValues[i]["typeReduction"]
+        newFormValues[i]["typeDiscount"]
       );
       HT = this.round(HT);
       TTC = HT + (HT * newFormValues[i]["tva"]) / 100;

@@ -20,7 +20,7 @@ const Post = () => {
       prix: "",
       tva: "",
       discount: "",
-      typeDiscount: "",
+      typeDiscount: "%",
       HT: "",
       TTC: "",
       description: "",
@@ -124,19 +124,21 @@ const Post = () => {
   const handleChange = async (i, e) => {
     let newFormValues = [...form];
 
-    if (i !== "" || i !== null) {
+    if (i !== "" || i !== null || isNaN(i)) {
       newFormValues[i][e.target.name] = e.target.value;
       const { TTC, HT } = await Calcule.calcule(i, newFormValues);
       newFormValues[i]["HT"] = HT;
       newFormValues[i]["TTC"] = TTC;
     }
-    setForm(newFormValues);
     if (e.target.name === "tva") await checkTheDuplicate(newFormValues);
+
+    setForm(newFormValues);
+
     if (e.target.name !== "description") {
       let value = Object.values(newFormValues);
-      global = Calcule.CalculeGeneral(e.target.value, value);
+      global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
+      setGenerale(global);
     }
-    setGenerale(global);
   };
   const handleSubmit = () => {
     let newFormValues = [...form];
@@ -246,7 +248,7 @@ const Post = () => {
                       </div>
 
                       <select
-                        name='typeReduction'
+                        name='typeDiscount'
                         onChange={(e) => handleChange(index, e)}>
                         <option value='%'>%</option>
                         <option value='€'>€</option>
