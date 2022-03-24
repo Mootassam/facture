@@ -4,7 +4,6 @@ import { VscAdd } from "react-icons/vsc";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { FaRegCopy } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
-import Select from "react-select";
 import { ImInfo } from "react-icons/im";
 import "./Post.css";
 import PDF from "./PDF";
