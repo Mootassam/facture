@@ -3,9 +3,6 @@ import "./Pdf.css";
 import Pdf from "react-to-pdf";
 const PDF = (props) => {
   const { form } = props;
-  const options = {
-    format: [4, 2],
-  };
   const ref = useRef();
   return (
     <>
