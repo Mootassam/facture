@@ -40,7 +40,7 @@ class Calcule {
     return rnd;
   }
 
-  static CalculeGeneral(remise, value) {
+  static CalculeGeneral(remise, value, type) {
     let TTC = [];
     let THT = [];
     let RemiseGeneral = 0.0;
@@ -64,9 +64,14 @@ class Calcule {
     );
     TVAG = TTC - THT;
     TVAG = this.round(TVAG);
-    if (remise) {
-      TTC = this.round(TTC - (TTC * remise) / 100);
-      THTF = this.round(THT - (THT * remise) / 100);
+    if (remise || type) {
+      if (type === "%") {
+        TTC = this.round(TTC - (TTC * remise) / 100);
+        THTF = this.round(THT - (THT * remise) / 100);
+      } else if (type === "€") {
+        TTC = this.round(TTC - remise);
+        THTF = this.round(THT - remise);
+      }
       RemiseGeneral = this.round((THT * remise) / 100);
     }
     return {

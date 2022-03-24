@@ -10,10 +10,8 @@ import "./Post.css";
 import PDF from "./PDF";
 
 const Post = () => {
-  const options = [
-    { value: "%", label: "%" },
-    { value: "€", label: "€" },
-  ];
+  const [remisteTotal, setRemisteTotal] = useState(0);
+  const [typeRemiseTotale, setTypeRemiseTotale] = useState("%");
   const [submited, setSubmited] = useState(false);
   const [form, setForm] = useState([
     {
@@ -95,10 +93,31 @@ const Post = () => {
     isDuplicated ? setEnable(true) : setEnable(false);
   };
 
-  const calculeGenerale = (e) => {
+  const calculeGenerale = async (e) => {
     let newFormValues = [...form];
     let value = Object.values(newFormValues);
-    global = Calcule.CalculeGeneral(e.target.value, value);
+    if (e.target.name === "typediscountGlobal") {
+      setTypeRemiseTotale(e.target.value);
+      global = await Calcule.CalculeGeneral(
+        remisteTotal,
+        value,
+        typeRemiseTotale
+      );
+    }
+    if (e.target.name === "general") {
+      setRemisteTotal(e.target.value);
+      global = await Calcule.CalculeGeneral(
+        e.target.value,
+        value,
+        typeRemiseTotale
+      );
+    }
+
+    global = await Calcule.CalculeGeneral(
+      e.target.value,
+      value,
+      typeRemiseTotale
+    );
     setGenerale(global);
   };
 
@@ -122,14 +141,14 @@ const Post = () => {
   const handleSubmit = () => {
     let newFormValues = [...form];
     let value = Object.values(newFormValues);
-    global = Calcule.CalculeGeneral("", value);
+    global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
     setGenerale(global);
   };
 
   return (
     <>
       {submited === false ? (
-        <div className='app__form' onClick={handleSubmit}>
+        <div className='app__form' onClick={() => handleSubmit()}>
           <form action='' className='form'>
             <div className='form-destinataire'>
               <div className='form-devis-title'>
@@ -320,9 +339,11 @@ const Post = () => {
                 </div>
               )}
 
-              <select>
-                <option>%</option>
-                <option>€</option>
+              <select
+                name='typediscountGlobal'
+                onChange={(e) => calculeGenerale(e)}>
+                <option value='%'>%</option>
+                <option value='€'>€</option>
               </select>
             </div>
 
