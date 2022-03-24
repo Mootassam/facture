@@ -60,7 +60,8 @@ const Post = () => {
   const handleSubmit = () => {
     let newFormValues = [...form];
     let value = Object.values(newFormValues);
-    let global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
+    let global;
+    global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
     setGenerale(global);
   };
   const copyFormFields = async (index) => {
@@ -78,9 +79,11 @@ const Post = () => {
       description: data.description,
     };
     newForm.splice(index, 0, data);
+
     await setForm(newForm);
     let value = Object.values(newForm);
-    let global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
+    let global;
+    global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
     setGenerale(global);
   };
 
@@ -90,8 +93,9 @@ const Post = () => {
       newFormValues.splice(i, 1);
       setForm(newFormValues);
     }
+    let global;
     let value = Object.values(newFormValues);
-    let global = await Calcule.CalculeGeneral(
+    global = await Calcule.CalculeGeneral(
       remisteTotal,
       value,
       typeRemiseTotale
@@ -109,19 +113,19 @@ const Post = () => {
 
   const calculeGenerale = async (e) => {
     let newFormValues = [...form];
-    let global;
     let value = Object.values(newFormValues);
+
     if (e.target.name === "general") {
       setRemisteTotal(e.target.value);
-      global = await Calcule.CalculeGeneral(
+      let global = await Calcule.CalculeGeneral(
         e.target.value,
         value,
         typeRemiseTotale
       );
+      setGenerale(global);
     } else if (e.target.name === "typediscountGlobal") {
       setTypeRemiseTotale(e.target.value);
     }
-    setGenerale(global);
   };
 
   const handleChange = async (i, e) => {
