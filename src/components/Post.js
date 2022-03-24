@@ -86,14 +86,18 @@ const Post = () => {
     setGenerale(global);
   };
 
-  const removeFormFields = (i) => {
+  const removeFormFields = async (i) => {
     let newFormValues = [...form];
     if (i !== 0) {
       newFormValues.splice(i, 1);
       setForm(newFormValues);
     }
     let value = Object.values(newFormValues);
-    global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
+    global = await Calcule.CalculeGeneral(
+      remisteTotal,
+      value,
+      typeRemiseTotale
+    );
     setGenerale(global);
   };
   const checkTheDuplicate = (value) => {
