@@ -5,9 +5,8 @@ import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { FaRegCopy } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import { ImInfo } from "react-icons/im";
-import "./Post.css";
+import PostWrapper from "../assets/PostWrapper";
 import PDF from "./PDF";
-
 const Post = () => {
   const [remisteTotal, setRemisteTotal] = useState(0);
   const [typeRemiseTotale, setTypeRemiseTotale] = useState("%");
@@ -37,7 +36,7 @@ const Post = () => {
         prix: "",
         tva: "",
         discount: "",
-        typeDiscount: "",
+        typeDiscount: "%",
         HT: "",
         TTC: "",
         description: "",
@@ -133,14 +132,24 @@ const Post = () => {
 
     if (i !== "" || i !== null || isNaN(i)) {
       newFormValues[i][e.target.name] = e.target.value;
-      const { TTC, HT } = await Calcule.calcule(i, newFormValues);
-      newFormValues[i]["HT"] = HT;
-      newFormValues[i]["TTC"] = TTC;
+
+      if (e.target.name !== "TTC") {
+        const { TTC, HT } = await Calcule.calcule(i, newFormValues);
+        newFormValues[i]["HT"] = HT;
+        newFormValues[i]["TTC"] = TTC;
+      } else if (e.target.name === "TTC") {
+        const { prixHt, quantity } = await Calcule.calculeLigne(
+          i,
+          newFormValues
+        );
+        console.log(prixHt);
+        newFormValues[i]["quantity"] = quantity;
+        newFormValues[i]["prix"] = prixHt;
+      }
     }
+
     if (e.target.name === "tva") await checkTheDuplicate(newFormValues);
-
     setForm(newFormValues);
-
     if (e.target.name !== "description") {
       let value = Object.values(newFormValues);
       let global = await Calcule.CalculeGeneral(
@@ -153,10 +162,19 @@ const Post = () => {
   };
 
   return (
-    <>
+    <PostWrapper>
       {submited === false ? (
         <div className='app__form' onClick={() => handleSubmit()}>
           <form action='' className='form'>
+            <div className='app__header'>
+              <div className='app__header_facture'>
+                <input placeholder='Facture' />
+              </div>
+              <div className='app__header_logo'>
+                <h2>Here Logo</h2>
+              </div>
+            </div>
+
             <div className='form-destinataire'>
               <div className='form-devis-title'>
                 <h3>Destinataire</h3>
@@ -254,7 +272,8 @@ const Post = () => {
 
                       <select
                         name='typeDiscount'
-                        onChange={(e) => handleChange(index, e)}>
+                        onChange={(e) => handleChange(index, e)}
+                        value={item.typeDiscount}>
                         <option value='%'>%</option>
                         <option value='€'>€</option>
                       </select>
@@ -271,8 +290,9 @@ const Post = () => {
                         <label className='label'>Total TTC </label>
                         <input
                           type='number'
+                          name='TTC'
                           value={item.TTC}
-                          onChange={(e) => handleChange(e)}
+                          onChange={(e) => handleChange(index, e)}
                         />
                       </div>
                     </div>
@@ -389,7 +409,7 @@ const Post = () => {
       ) : (
         <PDF form={form} content={"content"} image={"image"} />
       )}
-    </>
+    </PostWrapper>
   );
 };
 

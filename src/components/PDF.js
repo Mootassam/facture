@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
-import "./Pdf.css";
 import Pdf from "react-to-pdf";
+import PdfWrapper from "../assets/PdfWrapper";
 const PDF = (props) => {
   const { form } = props;
   const ref = useRef();
   return (
-    <>
+    <PdfWrapper>
       <div className='app__facture_pdf' ref={ref}>
         <div className='app__facture-title'>
           <div className='facture-title'>
@@ -119,7 +119,7 @@ const PDF = (props) => {
           {({ toPdf }) => <button onClick={toPdf}>Capture as PDF</button>}
         </Pdf>
       </div>
-    </>
+    </PdfWrapper>
   );
 };
 

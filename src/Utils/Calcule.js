@@ -47,8 +47,8 @@ class Calcule {
     let RemiseGeneral = 0;
     let TTC = [];
     let THTF = 0;
-    let TVAG = [];
-    if (THT < 0 || TTC < 0 || TVAG < 0 || THTF < 0) {
+    let TVAG = 0;
+    if (THT < 0 || TTC < 0 || TVAG < 0 || THTF < 0 || TVAG < 0) {
       THT = 0;
       TTC = 0;
       TVAG = 0;
@@ -140,7 +140,62 @@ class Calcule {
       TTC = HT + (HT * newFormValues[i]["tva"]) / 100;
       TTC = this.round(TTC);
     }
+
     return { TTC, HT };
+  }
+
+  static calculePrixHT(TTC, discount, qunatity) {
+    let prixHt = 0;
+    prixHt = ((TTC * 100) / (100 + discount)) * qunatity;
+    return prixHt;
+  }
+
+  static calculeLigne(i, newFormValues) {
+    let quantity = 0;
+    if (
+      newFormValues[i]["quantity"] === undefined ||
+      newFormValues[i]["quantity"] < 0 ||
+      newFormValues[i]["quantity"] === ""
+    ) {
+      quantity = 1;
+    }
+    quantity = newFormValues[i]["quantity"];
+    console.log(quantity);
+    let prixHt = 0;
+
+    if (newFormValues[i]["TTC"] && newFormValues[i]["discount"]) {
+      prixHt =
+        (newFormValues[i]["TTC"] * 100) /
+        ((100 - newFormValues[i]["discount"]) * quantity);
+    }
+    if (newFormValues[i]["TTC"] && newFormValues[i]["tva"]) {
+      prixHt = this.calculePrixHT(
+        newFormValues[i]["TTC"],
+        newFormValues[i]["tva"],
+        quantity
+      );
+    }
+    if (
+      newFormValues[i]["TTC"] &&
+      newFormValues[i]["discount"] &&
+      newFormValues[i]["tva"]
+    ) {
+      prixHt =
+        ((newFormValues[i]["TTC"] * 10000) / (100 + newFormValues[i]["tva"])) *
+        (100 - newFormValues[i]["discount"]) *
+        newFormValues[i]["qunatity"];
+    }
+    if (newFormValues[i]["TTC"] && newFormValues[i]["quantity"]) {
+      prixHt = newFormValues[i]["TTC"] / newFormValues[i]["quantity"];
+    }
+    if (newFormValues[i]["TTC"] && newFormValues[i]["prix"]) {
+      quantity = newFormValues[i]["TTC"] / newFormValues[i]["prix"];
+    }
+
+    return {
+      prixHt,
+      quantity,
+    };
   }
 }
 export default Calcule;

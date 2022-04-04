@@ -12,6 +12,7 @@
     "react-icons": "^4.3.1",
     "react-scripts": "5.0.0",
     "react-to-pdf": "^0.0.14",
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
