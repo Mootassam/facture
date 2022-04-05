@@ -5,7 +5,7 @@ import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { FaRegCopy } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import { ImInfo } from "react-icons/im";
-import PostWrapper from "../assets/PostWrapper";
+import FactureWrapper from "../assets/FactureWrapper";
 import PDF from "./PDF";
 const Post = () => {
   const [remisteTotal, setRemisteTotal] = useState(0);
@@ -162,7 +162,7 @@ const Post = () => {
   };
 
   return (
-    <PostWrapper>
+    <FactureWrapper>
       {submited === false ? (
         <div className='app__form' onClick={() => handleSubmit()}>
           <form action='' className='form'>
@@ -176,28 +176,66 @@ const Post = () => {
             </div>
 
             <div className='form-destinataire'>
-              <div className='form-devis-title'>
-                <h3>Destinataire</h3>
+              <div className='form-de'>
+                DE
+                <br />
+                <div>
+                  <label>Nom</label>
+                  <input className='' placeholder='Nom Enterprise' />
+                </div>
+                <div>
+                  <label>Email</label>
+                  <input className='' placeholder='Nom Enterprise' />
+                </div>
+                <div>
+                  <label>Adresse</label>
+                  <input className='' placeholder='Nom Enterprise' />
+                </div>
+                <div>
+                  <label>Tel. fixe</label>
+                  <input className='' placeholder='Nom Enterprise' />
+                </div>
+                <div>
+                  <label>N SIREN/SIRET</label>
+                  <input className='' placeholder='Nom Enterprise' />
+                </div>
               </div>
-              <div className='form-devis-destinataire'>
-                <select name='' id=''>
-                  <option value=''>FTDES</option>
-                  <option value=''>Topnet</option>
-                  <option value=''>Steg</option>
-                </select>
-              </div>
-            </div>
-            <div className='form-informations'>
-              <div className='form-devis-title'>
-                <h3>Informations</h3>
-              </div>
-              <div className='form-informations-duree'>
-                <div className='duree'>
-                  <input type='number' name='' id='' />
-                  <label htmlFor=''> Jours</label>
+              <div className='form-facture'>
+                Adresse De Facturation
+                <div>
+                  <label>Nom</label>
+                  <input className='' placeholder='Nom Enterprise' />
+                </div>
+                <div>
+                  <label>Email</label>
+                  <input className='' placeholder='Nom Enterprise' />
+                </div>
+                <div>
+                  <label>Adresse</label>
+                  <input className='' placeholder='Nom Enterprise' />
+                </div>
+                <div>
+                  <label>Tel.fixe</label>
+                  <input className='' placeholder='Nom Enterprise' />
                 </div>
               </div>
             </div>
+            <hr />
+            <div>
+              <div>
+                <label>Nombre</label>
+                <input className='' placeholder='Nom Enterprise' />
+              </div>
+              <div>
+                <label>Date</label>
+                <input className='' placeholder='Nom Enterprise' />
+              </div>
+              <div>
+                <label>Conditions</label>
+                <input className='' placeholder='Nom Enterprise' />
+              </div>
+            </div>
+
             <div className='form-articles'>
               <div className='article-title'>
                 <h3>Articles</h3>
@@ -409,7 +447,7 @@ const Post = () => {
       ) : (
         <PDF form={form} content={"content"} image={"image"} />
       )}
-    </PostWrapper>
+    </FactureWrapper>
   );
 };
 

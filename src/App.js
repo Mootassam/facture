@@ -1,10 +1,12 @@
 import React from "react";
-import Post from "./components/Post";
-
+import Facture from "./components/Facture";
+import Settings from "./components/Settings";
+import "./App.css";
 function App() {
   return (
-    <div>
-      <Post />
+    <div className='app'>
+      <Facture />
+      <Settings />
     </div>
   );
 }

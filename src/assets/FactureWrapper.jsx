@@ -65,10 +65,12 @@ const PostWrapper = styled.div`
 
   /** styling global **/
   .app__form {
+    justify-content: center;
     display: flex;
     flex-direction: column;
     padding: 3rem;
     width: 100%;
+    box-shadow: 1px 1px 7px 7px #888888;
   }
   .app__form div {
     padding: 1px;
@@ -83,14 +85,7 @@ const PostWrapper = styled.div`
   /** Styling the destinataire **/
   .form-destinataire {
     display: flex;
-    flex-direction: column;
-    margin-bottom: 2rem;
-  }
-  .form-devis-title {
-    padding-bottom: 0rem;
-  }
-  .form-devis-destinataire > select {
-    width: 70%;
+    justify-content: space-between;
   }
 
   /******** Styling the Informations ********/
@@ -131,7 +126,6 @@ const PostWrapper = styled.div`
   .form-left-numbers > span {
     background-color: #5b77bc;
     color: #ffffff;
-
     padding: 0.4rem 0.7rem;
     border-radius: 50%;
     font-weight: bold;

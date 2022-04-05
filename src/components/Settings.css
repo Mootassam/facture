@@ -1,0 +1,30 @@
+.app__settings {
+  width: 24%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+}
+.app__settings_mail {
+  display: flex;
+  flex-direction: column;
+}
+.app__settings_mail > label {
+  font-weight: bold;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+input {
+  margin: 5px 0px 7px;
+  height: 2rem;
+}
+button {
+  border: none;
+  background: #444;
+  background-color: linear-gradient(#555, #444);
+  color: #fff;
+  padding: 0.5rem;
+  font-weight: 500;
+  border-radius: 2px;
+  cursor: pointer;
+}
