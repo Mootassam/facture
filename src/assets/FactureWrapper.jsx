@@ -10,6 +10,7 @@ const PostWrapper = styled.div`
   p {
     font-size: 0.92rem;
   }
+
   input[type="number"] {
     border: none;
     border-bottom: 1px solid rgba(12, 13, 15, 0.14);
@@ -86,6 +87,35 @@ const PostWrapper = styled.div`
   .form-destinataire {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-de {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-content: center;
+    justify-content: center;
+  }
+  .form-group {
+    display: flex;
+    align-items: center;
+    gap: 7rem;
+    justify-content: flex-start;
+  }
+  .form-conditions {
+    margin-top: 0.5rem;
+  }
+  .form-group > label {
+    max-width: 2px;
+    flex-wrap: wrap;
+  }
+  .form-facture {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-content: center;
+    justify-content: center;
   }
 
   /******** Styling the Informations ********/

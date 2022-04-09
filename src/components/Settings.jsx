@@ -9,7 +9,10 @@ const Settings = () => {
         <input type='text' placeholder='nom@enterprise.com' />
         <button type='button'>Envoyer</button>
       </div>
-      <div> color</div>
+      <div>
+        <label>color</label>
+        <hr />
+      </div>
       <div>Currency</div>
     </div>
   );

@@ -179,58 +179,58 @@ const Post = () => {
               <div className='form-de'>
                 DE
                 <br />
-                <div>
+                <div className='form-group'>
                   <label>Nom</label>
                   <input className='' placeholder='Nom Enterprise' />
                 </div>
-                <div>
+                <div className='form-group'>
                   <label>Email</label>
                   <input className='' placeholder='Nom Enterprise' />
                 </div>
-                <div>
+                <div className='form-group'>
                   <label>Adresse</label>
                   <input className='' placeholder='Nom Enterprise' />
                 </div>
-                <div>
+                <div className='form-group'>
                   <label>Tel. fixe</label>
                   <input className='' placeholder='Nom Enterprise' />
                 </div>
-                <div>
+                <div className='form-group'>
                   <label>N SIREN/SIRET</label>
                   <input className='' placeholder='Nom Enterprise' />
                 </div>
               </div>
               <div className='form-facture'>
                 Adresse De Facturation
-                <div>
+                <div className='form-group'>
                   <label>Nom</label>
                   <input className='' placeholder='Nom Enterprise' />
                 </div>
-                <div>
+                <div className='form-group'>
                   <label>Email</label>
                   <input className='' placeholder='Nom Enterprise' />
                 </div>
-                <div>
+                <div className='form-group'>
                   <label>Adresse</label>
                   <input className='' placeholder='Nom Enterprise' />
                 </div>
-                <div>
+                <div className='form-group'>
                   <label>Tel.fixe</label>
                   <input className='' placeholder='Nom Enterprise' />
                 </div>
               </div>
             </div>
             <hr />
-            <div>
-              <div>
+            <div className='form-conditions'>
+              <div className='form-group'>
                 <label>Nombre</label>
                 <input className='' placeholder='Nom Enterprise' />
               </div>
-              <div>
+              <div className='form-group'>
                 <label>Date</label>
                 <input className='' placeholder='Nom Enterprise' />
               </div>
-              <div>
+              <div className='form-group'>
                 <label>Conditions</label>
                 <input className='' placeholder='Nom Enterprise' />
               </div>
