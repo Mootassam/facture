@@ -168,7 +168,7 @@ const Post = () => {
           <form action='' className='form'>
             <div className='app__header'>
               <div className='app__header_facture'>
-                <input placeholder='Facture' />
+                <input placeholder='Facture' type='text' />
               </div>
               <div className='app__header_logo'>
                 <h2>Here Logo</h2>
@@ -177,8 +177,8 @@ const Post = () => {
 
             <div className='form-destinataire'>
               <div className='form-de'>
-                DE
-                <br />
+                <h3> DE </h3>
+
                 <div className='form-group'>
                   <label>Nom</label>
                   <input className='' placeholder='Nom Enterprise' />
@@ -201,7 +201,7 @@ const Post = () => {
                 </div>
               </div>
               <div className='form-facture'>
-                Adresse De Facturation
+                <h3> Adresse De Facturation </h3>
                 <div className='form-group'>
                   <label>Nom</label>
                   <input className='' placeholder='Nom Enterprise' />

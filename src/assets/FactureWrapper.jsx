@@ -79,8 +79,13 @@ const PostWrapper = styled.div`
 
   /** Styling the header **/
   .app__header {
+    margin-bottom: 4rem;
     display: flex;
     justify-content: space-between;
+  }
+  .app__header_facture > input {
+    width: 300px;
+    height: 45px;
   }
 
   /** Styling the destinataire **/
