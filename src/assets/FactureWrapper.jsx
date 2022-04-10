@@ -10,6 +10,10 @@ const PostWrapper = styled.div`
   p {
     font-size: 0.92rem;
   }
+  input[type="text"]{
+    padding : 1rem; 
+    font-size : 18px;
+  }
 
   input[type="number"] {
     border: none;
@@ -82,11 +86,37 @@ const PostWrapper = styled.div`
     margin-bottom: 4rem;
     display: flex;
     justify-content: space-between;
+
   }
   .app__header_facture > input {
     width: 300px;
     height: 45px;
   }
+  .app__header_logo {
+    display flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items:center;
+    border: solid 1px black;
+    cursor:pointer;
+    p {
+      display : none
+     
+    }
+  }
+  .app__header_logo:hover {
+    p { 
+    display:block;
+    padding-bottom : 5px;
+    }
+
+  }
+  .app__header_logo h4 {
+    display :flex; 
+    padding: 28px 70px;
+  }
+
+
 
   /** Styling the destinataire **/
   .form-destinataire {

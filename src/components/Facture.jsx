@@ -7,6 +7,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { ImInfo } from "react-icons/im";
 import FactureWrapper from "../assets/FactureWrapper";
 import PDF from "./PDF";
+import { BiPhotoAlbum } from "react-icons/bi";
 const Post = () => {
   const [remisteTotal, setRemisteTotal] = useState(0);
   const [typeRemiseTotale, setTypeRemiseTotale] = useState("%");
@@ -168,17 +169,20 @@ const Post = () => {
           <form action='' className='form'>
             <div className='app__header'>
               <div className='app__header_facture'>
-                <input placeholder='Facture' type='text' />
+                <input placeholder='Invoice' type='text' />
               </div>
               <div className='app__header_logo'>
-                <h2>Here Logo</h2>
+                <h4>
+                  <BiPhotoAlbum />
+                  +Logo
+                </h4>
+                <p>tap for your logo</p>
               </div>
             </div>
 
             <div className='form-destinataire'>
               <div className='form-de'>
-                <h3> DE </h3>
-
+                <h3> De </h3>
                 <div className='form-group'>
                   <label>Nom</label>
                   <input className='' placeholder='Nom Enterprise' />
