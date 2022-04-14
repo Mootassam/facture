@@ -143,7 +143,6 @@ const Post = () => {
           i,
           newFormValues
         );
-        console.log(prixHt);
         newFormValues[i]["quantity"] = quantity;
         newFormValues[i]["prix"] = prixHt;
       }
@@ -161,7 +160,10 @@ const Post = () => {
       setGenerale(global);
     }
   };
-
+  const uploadPhoto = (event) => {
+    const imageId = document.querySelector("#image_logo");
+    imageId.src = URL.createObjectURL(event.target.files[0]);
+  };
   return (
     <FactureWrapper>
       {submited === false ? (
@@ -175,9 +177,15 @@ const Post = () => {
                 <h4>
                   <BiPhotoAlbum />
                   +Logo
+                  <input
+                    type='file'
+                    id='upload'
+                    onChange={(e) => uploadPhoto(e)}
+                  />
                 </h4>
-                <p>tap for your logo</p>
+                <img id='image_logo' width={150} height={150} />
               </div>
+              <br />
             </div>
 
             <div className='form-destinataire'>
@@ -185,42 +193,78 @@ const Post = () => {
                 <h3> De </h3>
                 <div className='form-group'>
                   <label>Nom</label>
-                  <input className='' placeholder='Nom Enterprise' />
+                  <input
+                    className=''
+                    type='text'
+                    placeholder='Nom Enterprise'
+                  />
                 </div>
                 <div className='form-group'>
                   <label>Email</label>
-                  <input className='' placeholder='Nom Enterprise' />
+                  <input
+                    className=''
+                    type='text'
+                    placeholder='Nom Enterprise'
+                  />
                 </div>
                 <div className='form-group'>
                   <label>Adresse</label>
-                  <input className='' placeholder='Nom Enterprise' />
+                  <input
+                    className=''
+                    type='text'
+                    placeholder='Nom Enterprise'
+                  />
                 </div>
                 <div className='form-group'>
                   <label>Tel. fixe</label>
-                  <input className='' placeholder='Nom Enterprise' />
+                  <input
+                    className=''
+                    type='text'
+                    placeholder='Nom Enterprise'
+                  />
                 </div>
                 <div className='form-group'>
                   <label>N SIREN/SIRET</label>
-                  <input className='' placeholder='Nom Enterprise' />
+                  <input
+                    className=''
+                    type='text'
+                    placeholder='Nom Enterprise'
+                  />
                 </div>
               </div>
               <div className='form-facture'>
                 <h3> Adresse De Facturation </h3>
                 <div className='form-group'>
                   <label>Nom</label>
-                  <input className='' placeholder='Nom Enterprise' />
+                  <input
+                    className=''
+                    type='text'
+                    placeholder='Nom Enterprise'
+                  />
                 </div>
                 <div className='form-group'>
                   <label>Email</label>
-                  <input className='' placeholder='Nom Enterprise' />
+                  <input
+                    className=''
+                    type='text'
+                    placeholder='Nom Enterprise'
+                  />
                 </div>
                 <div className='form-group'>
                   <label>Adresse</label>
-                  <input className='' placeholder='Nom Enterprise' />
+                  <input
+                    className=''
+                    type='text'
+                    placeholder='Nom Enterprise'
+                  />
                 </div>
                 <div className='form-group'>
                   <label>Tel.fixe</label>
-                  <input className='' placeholder='Nom Enterprise' />
+                  <input
+                    className=''
+                    type='text'
+                    placeholder='Nom Enterprise'
+                  />
                 </div>
               </div>
             </div>
@@ -228,15 +272,15 @@ const Post = () => {
             <div className='form-conditions'>
               <div className='form-group'>
                 <label>Nombre</label>
-                <input className='' placeholder='Nom Enterprise' />
+                <input className='' type='text' placeholder='Nom Enterprise' />
               </div>
               <div className='form-group'>
                 <label>Date</label>
-                <input className='' placeholder='Nom Enterprise' />
+                <input className='' type='text' placeholder='Nom Enterprise' />
               </div>
               <div className='form-group'>
                 <label>Conditions</label>
-                <input className='' placeholder='Nom Enterprise' />
+                <input className='' type='text' placeholder='Nom Enterprise' />
               </div>
             </div>
 
@@ -311,14 +355,17 @@ const Post = () => {
                           onChange={(e) => handleChange(index, e)}
                         />
                       </div>
+                      <div className='other-number'>
+                        <label className='label'>Type reduction</label>
 
-                      <select
-                        name='typeDiscount'
-                        onChange={(e) => handleChange(index, e)}
-                        value={item.typeDiscount}>
-                        <option value='%'>%</option>
-                        <option value='€'>€</option>
-                      </select>
+                        <select
+                          name='typeDiscount'
+                          onChange={(e) => handleChange(index, e)}
+                          value={item.typeDiscount}>
+                          <option value='%'>%</option>
+                          <option value='€'>€</option>
+                        </select>
+                      </div>
                       <div className='other-number'>
                         <label className='disabled'>Total HT</label>
                         <input
@@ -419,23 +466,46 @@ const Post = () => {
             <div className='form-total'>
               <div className='total-items'>
                 <p>Total HT</p>
-                <p>{general.THT} €</p>
+                {new Intl.NumberFormat("de-DE", {
+                  style: "currency",
+                  currency: "EUR",
+                }).format(general.THT)}
               </div>
               <div className='total-items'>
                 <p>Remise générale</p>
-                <p> {general.RemiseGeneral} €</p>
+                <p>
+                  {new Intl.NumberFormat("de-DE", {
+                    style: "currency",
+                    currency: "EUR",
+                  }).format(general.RemiseGeneral)}
+                </p>
               </div>
               <div className='total-items'>
                 <p>Total HT final</p>
-                <p> {general.THTF} €</p>
+                <p>
+                  {new Intl.NumberFormat("de-DE", {
+                    style: "currency",
+                    currency: "EUR",
+                  }).format(general.THTF)}
+                </p>
               </div>
               <div className='total-items'>
                 <p>TVA </p>
-                <p>{general.TVAG} €</p>
+                <p>
+                  {new Intl.NumberFormat("de-DE", {
+                    style: "currency",
+                    currency: "EUR",
+                  }).format(general.TVAG)}
+                </p>
               </div>
               <div className='total-items'>
                 <p>Total</p>
-                <p>{general.TTC} €</p>
+                <p>
+                  {new Intl.NumberFormat("de-DE", {
+                    style: "currency",
+                    currency: "EUR",
+                  }).format(general.TTC)}
+                </p>
               </div>
             </div>
             <div className='app_form-button'>

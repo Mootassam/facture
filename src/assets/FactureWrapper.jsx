@@ -12,7 +12,7 @@ const PostWrapper = styled.div`
   }
   input[type="text"]{
     padding : 1rem; 
-    font-size : 18px;
+     height: 2rem;
   }
 
   input[type="number"] {
@@ -75,8 +75,7 @@ const PostWrapper = styled.div`
     flex-direction: column;
     padding: 3rem;
     width: 100%;
-    box-shadow: 1px 1px 7px 7px #888888;
-  }
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;    }
   .app__form div {
     padding: 1px;
   }
@@ -91,6 +90,7 @@ const PostWrapper = styled.div`
   .app__header_facture > input {
     width: 300px;
     height: 45px;
+
   }
   .app__header_logo {
     display flex;
@@ -292,11 +292,12 @@ const PostWrapper = styled.div`
     flex-direction: row;
     gap: 1.5rem;
     flex-wrap: wrap;
+ 
   }
   .other-number {
     display: flex;
     flex-direction: column;
-    width: 120px;
+    width: 100px;
   }
   .other-number > label {
     color: #7b7c7d;
