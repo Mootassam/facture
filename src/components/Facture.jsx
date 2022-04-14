@@ -164,6 +164,7 @@ const Post = () => {
     const imageId = document.querySelector("#image_logo");
     imageId.src = URL.createObjectURL(event.target.files[0]);
   };
+
   return (
     <FactureWrapper>
       {submited === false ? (
@@ -173,16 +174,14 @@ const Post = () => {
               <div className='app__header_facture'>
                 <input placeholder='Invoice' type='text' />
               </div>
+              <input
+                type='file'
+                name='file'
+                id='upload'
+                onChange={(e) => uploadPhoto(e)}
+                class='inputfile'
+              />
               <div className='app__header_logo'>
-                <h4>
-                  <BiPhotoAlbum />
-                  +Logo
-                  <input
-                    type='file'
-                    id='upload'
-                    onChange={(e) => uploadPhoto(e)}
-                  />
-                </h4>
                 <img id='image_logo' width={150} height={150} />
               </div>
               <br />

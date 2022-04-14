@@ -92,6 +92,10 @@ const PostWrapper = styled.div`
     height: 45px;
 
   }
+  input[type="file"]{
+    border: none;
+    opacity: 12;
+  }
   .app__header_logo {
     display flex;
     flex-direction:column;
@@ -104,17 +108,7 @@ const PostWrapper = styled.div`
      
     }
   }
-  .app__header_logo:hover {
-    p { 
-    display:block;
-    padding-bottom : 5px;
-    }
-
-  }
-  .app__header_logo h4 {
-    display :flex; 
-    padding: 28px 70px;
-  }
+ 
 
 
 
