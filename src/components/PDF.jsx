@@ -9,7 +9,7 @@ const PDF = (props) => {
   const pdfExportComponent = React.useRef(null);
   const PDFExportPageTemplate = (props) => (
     <span>
-      Page {props.pageNum} of {props.totalPages}
+      Page {1} of {3}
     </span>
   );
 
@@ -19,6 +19,9 @@ const PDF = (props) => {
         paperSize='auto'
         margin={"2cm"}
         pageTemplate={PDFExportPageTemplate}
+        repeatHeaders={true}
+        scale={1}
+        date={new Date()}
         ref={pdfExportComponent}>
         <PdfWrapper>
           <div className='app__facture_pdf' ref={ref}>

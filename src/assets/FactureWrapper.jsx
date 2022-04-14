@@ -14,7 +14,13 @@ const PostWrapper = styled.div`
     padding : 1rem; 
      height: 2rem;
   }
+input[type="date"]{
+width:212px;
+  padding : 1rem; 
+  height: 2rem;
 
+
+}
   input[type="number"] {
     border: none;
     border-bottom: 1px solid rgba(12, 13, 15, 0.14);

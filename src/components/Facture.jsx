@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Calcule from "../Utils/Calcule";
 import { VscAdd } from "react-icons/vsc";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
@@ -7,8 +7,8 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { ImInfo } from "react-icons/im";
 import FactureWrapper from "../assets/FactureWrapper";
 import PDF from "./PDF";
-import { BiPhotoAlbum } from "react-icons/bi";
-const Post = () => {
+const Facture = () => {
+  const address = useRef();
   const [remisteTotal, setRemisteTotal] = useState(0);
   const [typeRemiseTotale, setTypeRemiseTotale] = useState("%");
   const [submited, setSubmited] = useState(false);
@@ -188,103 +188,112 @@ const Post = () => {
               </div>
               <br />
             </div>
-
-            <div className='form-destinataire'>
-              <div className='form-de'>
-                <h3> De </h3>
+            <form ref={address}>
+              <div className='form-destinataire'>
+                <div className='form-de'>
+                  <h3> De </h3>
+                  <div className='form-group'>
+                    <label>Nom</label>
+                    <input
+                      name='de_name_enterprise'
+                      type='text'
+                      placeholder='Nom Enterprise'
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label>Email</label>
+                    <input
+                      type='text'
+                      name='de_email_enterprise'
+                      placeholder='Email'
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label>Adresse</label>
+                    <input
+                      type='text'
+                      name='de_email_adresse'
+                      placeholder='Adresse'
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label>Tel. fixe</label>
+                    <input
+                      type='text'
+                      name='de_tel_fixe'
+                      placeholder='Tel. fixe'
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label>N SIREN/SIRET</label>
+                    <input
+                      className=''
+                      type='text'
+                      name='de_siren_siret'
+                      placeholder='N SIREN/SIRET'
+                    />
+                  </div>
+                </div>
+                <div className='form-facture'>
+                  <h3> Adresse De Facturation </h3>
+                  <div className='form-group'>
+                    <label>Nom</label>
+                    <input
+                      name='facture_nom_enterprise'
+                      type='text'
+                      placeholder='Adresse De Facturation'
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label>Email</label>
+                    <input
+                      name='facture_email_facture'
+                      type='text'
+                      placeholder='Nom Enterprise'
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label>Adresse</label>
+                    <input
+                      name='facture_address'
+                      type='text'
+                      placeholder='Adresse'
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label>Tel.fixe</label>
+                    <input
+                      name='facture_tel'
+                      type='text'
+                      placeholder='Tel.fixe'
+                    />
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div className='form-conditions'>
                 <div className='form-group'>
-                  <label>Nom</label>
+                  <label>Nombre</label>
                   <input
-                    className=''
+                    name='conditions_nombre'
                     type='text'
-                    placeholder='Nom Enterprise'
+                    placeholder='Nombre'
                   />
                 </div>
                 <div className='form-group'>
-                  <label>Email</label>
-                  <input
-                    className=''
-                    type='text'
-                    placeholder='Nom Enterprise'
-                  />
+                  <label>Date</label>
+                  <input name='condition_date' type='date' placeholder='Date' />
                 </div>
                 <div className='form-group'>
-                  <label>Adresse</label>
+                  <label>Conditions</label>
                   <input
-                    className=''
+                    name='conditions'
                     type='text'
-                    placeholder='Nom Enterprise'
-                  />
-                </div>
-                <div className='form-group'>
-                  <label>Tel. fixe</label>
-                  <input
-                    className=''
-                    type='text'
-                    placeholder='Nom Enterprise'
-                  />
-                </div>
-                <div className='form-group'>
-                  <label>N SIREN/SIRET</label>
-                  <input
-                    className=''
-                    type='text'
-                    placeholder='Nom Enterprise'
+                    placeholder='conditions'
                   />
                 </div>
               </div>
-              <div className='form-facture'>
-                <h3> Adresse De Facturation </h3>
-                <div className='form-group'>
-                  <label>Nom</label>
-                  <input
-                    className=''
-                    type='text'
-                    placeholder='Nom Enterprise'
-                  />
-                </div>
-                <div className='form-group'>
-                  <label>Email</label>
-                  <input
-                    className=''
-                    type='text'
-                    placeholder='Nom Enterprise'
-                  />
-                </div>
-                <div className='form-group'>
-                  <label>Adresse</label>
-                  <input
-                    className=''
-                    type='text'
-                    placeholder='Nom Enterprise'
-                  />
-                </div>
-                <div className='form-group'>
-                  <label>Tel.fixe</label>
-                  <input
-                    className=''
-                    type='text'
-                    placeholder='Nom Enterprise'
-                  />
-                </div>
-              </div>
-            </div>
-            <hr />
-            <div className='form-conditions'>
-              <div className='form-group'>
-                <label>Nombre</label>
-                <input className='' type='text' placeholder='Nom Enterprise' />
-              </div>
-              <div className='form-group'>
-                <label>Date</label>
-                <input className='' type='text' placeholder='Nom Enterprise' />
-              </div>
-              <div className='form-group'>
-                <label>Conditions</label>
-                <input className='' type='text' placeholder='Nom Enterprise' />
-              </div>
-            </div>
-
+            </form>
             <div className='form-articles'>
               <div className='article-title'>
                 <h3>Articles</h3>
@@ -526,4 +535,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default Facture;
