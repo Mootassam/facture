@@ -431,7 +431,6 @@ const Post = () => {
               {enable ? (
                 <div className='other-number'>
                   <label className='label'>Remise General</label>
-
                   <input
                     type='number'
                     name='general'
@@ -443,7 +442,6 @@ const Post = () => {
               ) : (
                 <div className='other-number'>
                   <label className='disabled'>Remise General</label>
-
                   <input
                     type='number'
                     name='general'
@@ -454,13 +452,15 @@ const Post = () => {
                   />
                 </div>
               )}
-
-              <select
-                name='typediscountGlobal'
-                onChange={(e) => calculeGenerale(e)}>
-                <option value='%'>%</option>
-                <option value='€'>€</option>
-              </select>
+              <div className='other-number'>
+                <label className='label'>Type Discount</label>
+                <select
+                  name='typediscountGlobal'
+                  onChange={(e) => calculeGenerale(e)}>
+                  <option value='%'>%</option>
+                  <option value='€'>€</option>
+                </select>
+              </div>
             </div>
 
             <div className='form-total'>

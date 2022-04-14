@@ -353,11 +353,13 @@ const PostWrapper = styled.div`
   }
   .remise_total {
     display: flex;
-    gap: 1.2rem;
-    float: right;
     flex-direction: row;
-
+    gap: 1.5rem;
+    justify-content : center ;
+    align-items : flex-start ;
     margin-bottom: 1rem;
+    flex-wrap: wrap;
+    float: right;
   }
   .remise_total > div {
     display: flex;
