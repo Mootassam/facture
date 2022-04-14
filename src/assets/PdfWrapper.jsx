@@ -22,9 +22,12 @@ const PdfWrapper = styled.div`
     display: flex;
     flex-direction: column;
     padding: 4rem 4rem;
+    width: 100%;
   }
 
   .app__facture-title {
+    display: flex;
+    justify-content: space-between;
     padding-bottom: 5rem;
   }
   .facture-title > p {
@@ -78,7 +81,6 @@ const PdfWrapper = styled.div`
     background: #fff;
     margin: 1em 0em;
     border: none;
-    border-collapse: separate;
     border-spacing: 0px;
   }
   thead {
@@ -106,7 +108,6 @@ const PdfWrapper = styled.div`
     padding: 10px 1rem 10px;
     vertical-align: middle;
     border-bottom: 1px solid rgba(12, 13, 15, 0.12);
-    border-right: 0.1px solid #ffffff;
     white-space: nowrap;
   }
 
@@ -118,9 +119,17 @@ const PdfWrapper = styled.div`
   .details-table tbody tr td {
     border-bottom: 1px solid rgba(12, 13, 15, 0.12);
   }
+  img {
+    object-fit: cover;
+  }
+  .details-description {
+    width: 350px;
+    max-width: max-content;
+  }
   .details-table td.details-numeric,
   .details-table th.details-numeric {
     text-align: right;
+    max-width: max-content;
   }
 
   /** Facture Totale **/

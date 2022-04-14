@@ -160,9 +160,11 @@ const Post = () => {
       setGenerale(global);
     }
   };
+  const [image, setImage] = useState();
   const uploadPhoto = (event) => {
     const imageId = document.querySelector("#image_logo");
     imageId.src = URL.createObjectURL(event.target.files[0]);
+    setImage(URL.createObjectURL(event.target.files[0]));
   };
 
   return (
@@ -518,7 +520,7 @@ const Post = () => {
           </form>
         </div>
       ) : (
-        <PDF form={form} content={"content"} image={"image"} />
+        <PDF form={form} general={general} image={image} />
       )}
     </FactureWrapper>
   );
