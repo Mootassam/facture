@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Calcule from "../Utils/Calcule";
 import { VscAdd } from "react-icons/vsc";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
@@ -9,6 +9,28 @@ import FactureWrapper from "../assets/FactureWrapper";
 import PDF from "./PDF";
 const Facture = () => {
   const address = useRef();
+  const [header, setheader] = useState();
+  const formHandler = (e) => {
+    e.preventDefault();
+    const data = {
+      invoice: address.current.invoice.value,
+      de_name_enterprise: address.current.de_name_enterprise.value,
+      de_email_enterprise: address.current.de_email_enterprise.value,
+      de_email_adresse: address.current.de_email_adresse.value,
+      de_tel_fixe: address.current.de_tel_fixe.value,
+      de_siren_siret: address.current.de_siren_siret.value,
+      facture_nom_enterprise: address.current.facture_nom_enterprise.value,
+      facture_email_facture: address.current.facture_email_facture.value,
+      facture_address: address.current.facture_address.value,
+      facture_tel: address.current.facture_tel.value,
+      conditions_nombre: address.current.conditions_nombre.value,
+      condition_date: address.current.condition_date.value,
+      conditions: address.current.conditions.value,
+    };
+    setheader(data);
+    setSubmited(true);
+  };
+
   const [remisteTotal, setRemisteTotal] = useState(0);
   const [typeRemiseTotale, setTypeRemiseTotale] = useState("%");
   const [submited, setSubmited] = useState(false);
@@ -171,129 +193,124 @@ const Facture = () => {
     <FactureWrapper>
       {submited === false ? (
         <div className='app__form' onClick={() => handleSubmit()}>
-          <form action='' className='form'>
+          <form className='form' onSubmit={formHandler} ref={address}>
             <div className='app__header'>
               <div className='app__header_facture'>
-                <input placeholder='Invoice' type='text' />
+                <input placeholder='Invoice' name='invoice' type='text' />
               </div>
               <input
                 type='file'
                 name='file'
                 id='upload'
                 onChange={(e) => uploadPhoto(e)}
-                class='inputfile'
               />
               <div className='app__header_logo'>
                 <img id='image_logo' width={150} height={150} />
               </div>
               <br />
             </div>
-            <form ref={address}>
-              <div className='form-destinataire'>
-                <div className='form-de'>
-                  <h3> De </h3>
-                  <div className='form-group'>
-                    <label>Nom</label>
-                    <input
-                      name='de_name_enterprise'
-                      type='text'
-                      placeholder='Nom Enterprise'
-                    />
-                  </div>
-                  <div className='form-group'>
-                    <label>Email</label>
-                    <input
-                      type='text'
-                      name='de_email_enterprise'
-                      placeholder='Email'
-                    />
-                  </div>
-                  <div className='form-group'>
-                    <label>Adresse</label>
-                    <input
-                      type='text'
-                      name='de_email_adresse'
-                      placeholder='Adresse'
-                    />
-                  </div>
-                  <div className='form-group'>
-                    <label>Tel. fixe</label>
-                    <input
-                      type='text'
-                      name='de_tel_fixe'
-                      placeholder='Tel. fixe'
-                    />
-                  </div>
-                  <div className='form-group'>
-                    <label>N SIREN/SIRET</label>
-                    <input
-                      className=''
-                      type='text'
-                      name='de_siren_siret'
-                      placeholder='N SIREN/SIRET'
-                    />
-                  </div>
-                </div>
-                <div className='form-facture'>
-                  <h3> Adresse De Facturation </h3>
-                  <div className='form-group'>
-                    <label>Nom</label>
-                    <input
-                      name='facture_nom_enterprise'
-                      type='text'
-                      placeholder='Adresse De Facturation'
-                    />
-                  </div>
-                  <div className='form-group'>
-                    <label>Email</label>
-                    <input
-                      name='facture_email_facture'
-                      type='text'
-                      placeholder='Nom Enterprise'
-                    />
-                  </div>
-                  <div className='form-group'>
-                    <label>Adresse</label>
-                    <input
-                      name='facture_address'
-                      type='text'
-                      placeholder='Adresse'
-                    />
-                  </div>
-                  <div className='form-group'>
-                    <label>Tel.fixe</label>
-                    <input
-                      name='facture_tel'
-                      type='text'
-                      placeholder='Tel.fixe'
-                    />
-                  </div>
-                </div>
-              </div>
-              <hr />
-              <div className='form-conditions'>
+
+            <div className='form-destinataire'>
+              <div className='form-de'>
+                <h3> De </h3>
                 <div className='form-group'>
-                  <label>Nombre</label>
+                  <label>Nom</label>
                   <input
-                    name='conditions_nombre'
+                    name='de_name_enterprise'
                     type='text'
-                    placeholder='Nombre'
+                    placeholder='Nom Enterprise'
                   />
                 </div>
                 <div className='form-group'>
-                  <label>Date</label>
-                  <input name='condition_date' type='date' placeholder='Date' />
+                  <label>Email</label>
+                  <input
+                    type='text'
+                    name='de_email_enterprise'
+                    placeholder='Email'
+                  />
                 </div>
                 <div className='form-group'>
-                  <label>Conditions</label>
+                  <label>Adresse</label>
                   <input
-                    name='conditions'
                     type='text'
-                    placeholder='conditions'
+                    name='de_email_adresse'
+                    placeholder='Adresse'
+                  />
+                </div>
+                <div className='form-group'>
+                  <label>Tel. fixe</label>
+                  <input
+                    type='text'
+                    name='de_tel_fixe'
+                    placeholder='Tel. fixe'
+                  />
+                </div>
+                <div className='form-group'>
+                  <label>N SIREN/SIRET</label>
+                  <input
+                    className=''
+                    type='text'
+                    name='de_siren_siret'
+                    placeholder='N SIREN/SIRET'
                   />
                 </div>
               </div>
-            </form>
+              <div className='form-facture'>
+                <h3> Adresse De Facturation </h3>
+                <div className='form-group'>
+                  <label>Nom</label>
+                  <input
+                    name='facture_nom_enterprise'
+                    type='text'
+                    placeholder='Adresse De Facturation'
+                  />
+                </div>
+                <div className='form-group'>
+                  <label>Email</label>
+                  <input
+                    name='facture_email_facture'
+                    type='text'
+                    placeholder='Nom Enterprise'
+                  />
+                </div>
+                <div className='form-group'>
+                  <label>Adresse</label>
+                  <input
+                    name='facture_address'
+                    type='text'
+                    placeholder='Adresse'
+                  />
+                </div>
+                <div className='form-group'>
+                  <label>Tel.fixe</label>
+                  <input
+                    name='facture_tel'
+                    type='text'
+                    placeholder='Tel.fixe'
+                  />
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div className='form-conditions'>
+              <div className='form-group'>
+                <label>Nombre</label>
+                <input
+                  name='conditions_nombre'
+                  type='text'
+                  placeholder='Nombre'
+                />
+              </div>
+              <div className='form-group'>
+                <label>Date</label>
+                <input name='condition_date' type='date' placeholder='Date' />
+              </div>
+              <div className='form-group'>
+                <label>Conditions</label>
+                <input name='conditions' type='text' placeholder='conditions' />
+              </div>
+            </div>
+
             <div className='form-articles'>
               <div className='article-title'>
                 <h3>Articles</h3>
@@ -519,17 +536,14 @@ const Facture = () => {
               </div>
             </div>
             <div className='app_form-button'>
-              <button
-                className='button-submit'
-                type='button'
-                onClick={() => setSubmited(!submited)}>
+              <button className='button-submit' type='submit'>
                 Valider Le devis
               </button>
             </div>
           </form>
         </div>
       ) : (
-        <PDF form={form} general={general} image={image} />
+        <PDF form={form} general={general} header={header} image={image} />
       )}
     </FactureWrapper>
   );

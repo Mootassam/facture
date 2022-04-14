@@ -27,7 +27,7 @@ const PDF = (props) => {
           <div className='app__facture_pdf' ref={ref}>
             <div className='app__facture-title'>
               <div className='facture-title'>
-                <h1>Devis Provisoire</h1>
+                <h1>{props.header.invoice}</h1>
                 <p>10 mars 2022</p>
               </div>
               <img src={props.image} alt='' width={150} height={150} />
@@ -37,38 +37,54 @@ const PDF = (props) => {
                 <h2>Emetteur</h2>
                 <div className='adresse-details'>
                   <p className='details-left'>Societe :</p>
-                  <p className='details-right'>Tadeco</p>
+                  <p className='details-right'>
+                    {props.header.de_name_enterprise}
+                  </p>
                 </div>
                 <div className='adresse-details'>
                   <p className='details-left'>Societe :</p>
-                  <p className='details-right'>Tadeco</p>
+                  <p className='details-right'>
+                    {props.header.de_email_enterprise}
+                  </p>
                 </div>
                 <div className='adresse-details'>
                   <p className='details-left'>Societe :</p>
-                  <p className='details-right'>Tadeco</p>
+                  <p className='details-right'>
+                    {props.header.de_email_adresse}
+                  </p>
                 </div>
                 <div className='adresse-details'>
                   <p className='details-left'>Societe :</p>
-                  <p className='details-right'>Tadeco</p>
+                  <p className='details-right'>{props.header.de_tel_fixe}</p>
+                </div>
+                <div className='adresse-details'>
+                  <p className='details-left'>Societe :</p>
+                  <p className='details-right'>{props.header.de_siren_siret}</p>
                 </div>
               </div>
               <div className='facture-adresse'>
                 <h2>Destinataire</h2>
                 <div className='adresse-details'>
                   <p className='details-left'>Societe :</p>
-                  <p className='details-right'>Topnet</p>
+                  <p className='details-right'>
+                    {props.header.facture_nom_enterprise}
+                  </p>
                 </div>
                 <div className='adresse-details'>
                   <p className='details-left'>Societe :</p>
-                  <p className='details-right'>Topnet</p>
+                  <p className='details-right'>
+                    {props.header.facture_email_facture}
+                  </p>
                 </div>
                 <div className='adresse-details'>
                   <p className='details-left'>Societe :</p>
-                  <p className='details-right'>Topnet</p>
+                  <p className='details-right'>
+                    {props.header.facture_address}
+                  </p>
                 </div>
                 <div className='adresse-details'>
                   <p className='details-left'>Societe :</p>
-                  <p className='details-right'>Topnet</p>
+                  <p className='details-right'>{props.header.facture_tel}</p>
                 </div>
                 <div className='adresse-details'>
                   <p className='details-left'>Societe :</p>
