@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef } from "react";
 import Calcule from "../Utils/Calcule";
 import { VscAdd } from "react-icons/vsc";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
@@ -10,6 +10,24 @@ import PDF from "./PDF";
 const Facture = () => {
   const address = useRef();
   const [header, setheader] = useState();
+  const [remisteTotal, setRemisteTotal] = useState(0);
+  const [typeRemiseTotale, setTypeRemiseTotale] = useState("%");
+  const [submited, setSubmited] = useState(false);
+  const [form, setForm] = useState([
+    {
+      type: "",
+      quantity: "",
+      prix: "",
+      tva: "",
+      discount: "",
+      typeDiscount: "%",
+      HT: "",
+      TTC: "",
+      description: "",
+    },
+  ]);
+  const [general, setGenerale] = useState({});
+  const [enable, setEnable] = useState(false);
   const formHandler = (e) => {
     e.preventDefault();
     const data = {
@@ -30,25 +48,6 @@ const Facture = () => {
     setheader(data);
     setSubmited(true);
   };
-
-  const [remisteTotal, setRemisteTotal] = useState(0);
-  const [typeRemiseTotale, setTypeRemiseTotale] = useState("%");
-  const [submited, setSubmited] = useState(false);
-  const [form, setForm] = useState([
-    {
-      type: "",
-      quantity: "",
-      prix: "",
-      tva: "",
-      discount: "",
-      typeDiscount: "%",
-      HT: "",
-      TTC: "",
-      description: "",
-    },
-  ]);
-  const [general, setGenerale] = useState({});
-  const [enable, setEnable] = useState(false);
 
   const addFormFields = () => {
     setForm([
@@ -111,10 +110,9 @@ const Facture = () => {
 
   const removeFormFields = async (i) => {
     let newFormValues = [...form];
-    if (i !== 0) {
-      newFormValues.splice(i, 1);
-      setForm(newFormValues);
-    }
+    newFormValues.splice(i, 1);
+    setForm(newFormValues);
+
     let global;
     let value = Object.values(newFormValues);
     global = await Calcule.CalculeGeneral(
@@ -425,9 +423,12 @@ const Facture = () => {
                   </div>
 
                   <div className='form-right-icons'>
-                    <span onClick={() => removeFormFields(index)}>
-                      <TiDeleteOutline />
-                    </span>
+                    {form.length > 1 && (
+                      <span onClick={() => removeFormFields(index)}>
+                        <TiDeleteOutline />
+                      </span>
+                    )}
+
                     <span onClick={() => copyFormFields(index)}>
                       <FaRegCopy />
                     </span>
@@ -535,6 +536,7 @@ const Facture = () => {
                 </p>
               </div>
             </div>
+
             <div className='app_form-button'>
               <button className='button-submit' type='submit'>
                 Valider Le devis

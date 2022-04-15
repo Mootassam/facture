@@ -36,59 +36,55 @@ const PDF = (props) => {
               <div className='facture-adresse'>
                 <h2>Emetteur</h2>
                 <div className='adresse-details'>
-                  <p className='details-left'>Societe :</p>
+                  <p className='details-left'>Name Enterprise :</p>
                   <p className='details-right'>
                     {props.header.de_name_enterprise}
                   </p>
                 </div>
                 <div className='adresse-details'>
-                  <p className='details-left'>Societe :</p>
+                  <p className='details-left'>Email :</p>
                   <p className='details-right'>
                     {props.header.de_email_enterprise}
                   </p>
                 </div>
                 <div className='adresse-details'>
-                  <p className='details-left'>Societe :</p>
+                  <p className='details-left'>Address :</p>
                   <p className='details-right'>
                     {props.header.de_email_adresse}
                   </p>
                 </div>
                 <div className='adresse-details'>
-                  <p className='details-left'>Societe :</p>
+                  <p className='details-left'>Tel :</p>
                   <p className='details-right'>{props.header.de_tel_fixe}</p>
                 </div>
                 <div className='adresse-details'>
-                  <p className='details-left'>Societe :</p>
+                  <p className='details-left'>SIREN /SIRET :</p>
                   <p className='details-right'>{props.header.de_siren_siret}</p>
                 </div>
               </div>
               <div className='facture-adresse'>
                 <h2>Destinataire</h2>
                 <div className='adresse-details'>
-                  <p className='details-left'>Societe :</p>
+                  <p className='details-left'>Nom enterprise :</p>
                   <p className='details-right'>
                     {props.header.facture_nom_enterprise}
                   </p>
                 </div>
                 <div className='adresse-details'>
-                  <p className='details-left'>Societe :</p>
+                  <p className='details-left'> Email :</p>
                   <p className='details-right'>
                     {props.header.facture_email_facture}
                   </p>
                 </div>
                 <div className='adresse-details'>
-                  <p className='details-left'>Societe :</p>
+                  <p className='details-left'> Address :</p>
                   <p className='details-right'>
                     {props.header.facture_address}
                   </p>
                 </div>
                 <div className='adresse-details'>
-                  <p className='details-left'>Societe :</p>
+                  <p className='details-left'> Tel :</p>
                   <p className='details-right'>{props.header.facture_tel}</p>
-                </div>
-                <div className='adresse-details'>
-                  <p className='details-left'>Societe :</p>
-                  <p className='details-right'>Topnet</p>
                 </div>
               </div>
             </div>
@@ -122,12 +118,7 @@ const PDF = (props) => {
                             currency: "EUR",
                           }).format(item.prix)}
                         </td>
-                        <td className='details-numeric'>
-                          {new Intl.NumberFormat("de-DE", {
-                            style: "currency",
-                            currency: "EUR",
-                          }).format(item.quantity)}
-                        </td>
+                        <td className='details-numeric'>{item.quantity}</td>
                         <td className='details-numeric'>
                           {new Intl.NumberFormat("de-DE", {
                             style: "currency",

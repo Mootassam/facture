@@ -35,7 +35,8 @@ const PdfWrapper = styled.div`
   }
 
   /** Facture Adresse Emiteur and  Destinateur **/
-
+  @media screen and (min-width: 900px) {
+  }
   .app__facture-adresse {
     display: flex;
     flex-direction: row;
@@ -156,6 +157,40 @@ const PdfWrapper = styled.div`
     font-weight: 800;
     color: black;
     opacity: 90%;
+  }
+
+  @media screen and (max-width: 900px) {
+    .app__facture-title {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .app__facture-adresse {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .adresse-details {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .app__facture-details {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .details-table {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+    .facture-totale {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
   }
 `;
 

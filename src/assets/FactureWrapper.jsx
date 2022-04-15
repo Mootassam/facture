@@ -11,7 +11,7 @@ const PostWrapper = styled.div`
     font-size: 0.92rem;
   }
   input[type="text"]{
-    padding : 1rem; 
+    padding :  0.5rem 1rem; 
      height: 2rem;
   }
 input[type="date"] {
@@ -80,6 +80,17 @@ input[type="date"] {
     padding: 3rem;
     width: 100%;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;    }
+    @media screen and (max-width: 900px) {
+      .app__form {
+        flex-direction: column;
+      }
+      .app__header {
+        flex-direction: column; 
+      }
+      .form-destinataire { flex-direction: column; }
+
+    }
+    
   .app__form div {
     padding: 1px;
   }
@@ -119,6 +130,7 @@ input[type="date"] {
   /** Styling the destinataire **/
   .form-destinataire {
     display: flex;
+    align-items:start;
     justify-content: space-between;
     margin-bottom: 0.5rem;
   }
@@ -138,6 +150,7 @@ input[type="date"] {
   }
   .form-conditions {
     margin-top: 0.5rem;
+    margin-bottom : 1rem ;
   }
   .form-group > label {
     max-width: 2px;
