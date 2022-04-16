@@ -404,12 +404,13 @@ const Facture = () => {
                         />
                       </div>
                       <div className='other-number'>
-                        <label className='label'>Total TTC </label>
+                        <label className='disabled'>Total TTC </label>
                         <input
                           type='number'
                           name='TTC'
                           value={item.TTC}
-                          onChange={(e) => handleChange(index, e)}
+                          disabled
+                          // onChange={(e) => handleChange(index, e)}
                         />
                       </div>
                     </div>
