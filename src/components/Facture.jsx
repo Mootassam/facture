@@ -80,6 +80,16 @@ const Facture = () => {
   };
   const handleSubmit = () => {
     let newFormValues = [...form];
+    // const keys = Object.keys(newFormValues);
+    // keys.forEach(async (element) => {
+    //   const { prixHt, quantity } = await Calcule.calculeLigne(
+    //     element,
+    //     newFormValues
+    //   );
+    //   newFormValues[element]["prix"] = prixHt;
+    //   newFormValues[element]["quantity"] = quantity;
+    // });
+
     let value = Object.values(newFormValues);
     let global;
     global = Calcule.CalculeGeneral(remisteTotal, value, typeRemiseTotale);
@@ -158,13 +168,6 @@ const Facture = () => {
         const { TTC, HT } = await Calcule.calcule(i, newFormValues);
         newFormValues[i]["HT"] = HT;
         newFormValues[i]["TTC"] = TTC;
-      } else if (e.target.name === "TTC") {
-        const { prixHt, quantity } = await Calcule.calculeLigne(
-          i,
-          newFormValues
-        );
-        newFormValues[i]["quantity"] = quantity;
-        newFormValues[i]["prix"] = prixHt;
       }
     }
 

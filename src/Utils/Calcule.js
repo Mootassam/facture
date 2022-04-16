@@ -144,52 +144,79 @@ class Calcule {
     return { TTC, HT };
   }
 
-  static calculePrixHT(TTC, discount, qunatity) {
-    let prixHt = 0;
-    prixHt = ((TTC * 100) / (100 + discount)) * qunatity;
+  static TTCandDiscount(TTC, discount, quantity) {
+    let prixHt = 1;
+    prixHt = (TTC * 100) / ((100 - discount) * quantity);
     return prixHt;
   }
 
+  static TTCandTva(TTC, tva, quantity) {
+    let prixHt = 1;
+    prixHt = ((TTC * 100) / (100 + tva)) * quantity;
+    return prixHt;
+  }
+  static TTCandDiscountandTva(TTC, tva, discount, quantity) {
+    let prixHt = 1;
+    prixHt = ((TTC * 10000) / (100 + tva)) * (100 - discount) * quantity;
+    return prixHt;
+  }
+
+  static TTCandQuantity(TTC, quantity) {
+    let prixHt = 1;
+    prixHt = TTC / quantity;
+    return prixHt;
+  }
+  static TTCandPrix(TTC, prix) {
+    let quantity = 1;
+    quantity = TTC / prix;
+    return quantity;
+  }
   static calculeLigne(i, newFormValues) {
     let quantity = 0;
-    if (
-      newFormValues[i]["quantity"] === undefined ||
-      newFormValues[i]["quantity"] < 0 ||
-      newFormValues[i]["quantity"] === ""
-    ) {
-      quantity = 1;
-    }
-    quantity = newFormValues[i]["quantity"];
-    console.log(quantity);
-    let prixHt = 0;
+    let prixHt;
 
-    if (newFormValues[i]["TTC"] && newFormValues[i]["discount"]) {
-      prixHt =
-        (newFormValues[i]["TTC"] * 100) /
-        ((100 - newFormValues[i]["discount"]) * quantity);
-    }
-    if (newFormValues[i]["TTC"] && newFormValues[i]["tva"]) {
-      prixHt = this.calculePrixHT(
+    if (newFormValues[i]["TTC"] && newFormValues[i]["quantity"]) {
+      prixHt = this.TTCandQuantity(
         newFormValues[i]["TTC"],
-        newFormValues[i]["tva"],
-        quantity
+        newFormValues[i]["quantity"]
       );
-    }
-    if (
+    } else if (newFormValues[i]["TTC"] && newFormValues[i]["prix"]) {
+      quantity = this.TTCandPrix(
+        newFormValues[i]["TTC"],
+        newFormValues[i]["prix"]
+      );
+    } else if (
       newFormValues[i]["TTC"] &&
       newFormValues[i]["discount"] &&
-      newFormValues[i]["tva"]
+      newFormValues[i]["quantity"]
     ) {
-      prixHt =
-        ((newFormValues[i]["TTC"] * 10000) / (100 + newFormValues[i]["tva"])) *
-        (100 - newFormValues[i]["discount"]) *
-        newFormValues[i]["qunatity"];
-    }
-    if (newFormValues[i]["TTC"] && newFormValues[i]["quantity"]) {
-      prixHt = newFormValues[i]["TTC"] / newFormValues[i]["quantity"];
-    }
-    if (newFormValues[i]["TTC"] && newFormValues[i]["prix"]) {
-      quantity = newFormValues[i]["TTC"] / newFormValues[i]["prix"];
+      prixHt = this.TTCandDiscount(
+        newFormValues[i]["TTC"],
+        newFormValues[i]["discount"],
+        newFormValues[i]["quantity"]
+      );
+    } else if (
+      newFormValues[i]["TTC"] &&
+      newFormValues[i]["tva"] &&
+      newFormValues[i]["quantity"]
+    ) {
+      prixHt = this.TTCandTva(
+        newFormValues[i]["TTC"],
+        newFormValues[i]["tva"],
+        newFormValues[i]["quantity"]
+      );
+    } else if (
+      newFormValues[i]["TTC"] &&
+      newFormValues[i]["discount"] &&
+      newFormValues[i]["tva"] &&
+      newFormValues[i]["quantity"]
+    ) {
+      prixHt = this.TTCandDiscountandTva(
+        newFormValues[i]["TTC"],
+        newFormValues[i]["tva"],
+        newFormValues[i]["discount"],
+        newFormValues[i]["qunatity"]
+      );
     }
 
     return {
